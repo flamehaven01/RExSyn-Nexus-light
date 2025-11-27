@@ -1,6 +1,6 @@
 # Changelog
 
-## [0.4.1] - 2025-11-26
+## [0.0.2] - 2025-11-26
 - Added request size guard (`max_length=10000`) on sequences.
 - Replaced `datetime.utcnow()` usage with timezone-aware timestamps where found (auth, storage, helpers).
 - Rate limiting (slowapi 60/min) kept and wired into app state/handlers.
@@ -9,7 +9,7 @@
 - pytest-cov added to dev/requirements; coverage artifacts ignored in .gitignore.
 - Documentation: CONTRIBUTING.md, CHANGELOG.md added.
 
-## [0.4.0] - 2025-11-26
+## [0.0.1] - 2025-11-26
 - Light profile stabilized (placeholder pipeline, SQLite default, local JWT).
 - Static frontend served at `/frontend` (landing, API console, status/metrics, full edition preview).
 - Added rate limiting (slowapi, default 60/min) and `/ui` redirect to landing.

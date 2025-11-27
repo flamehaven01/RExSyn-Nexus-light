@@ -11,7 +11,10 @@ class Settings:
     JWT_AUD = os.getenv("RSN_JWT_AUD", "rsn-api")
     SECRET_KEY = os.getenv("RSN_SECRET_KEY")
     if not SECRET_KEY:
-        raise RuntimeError("RSN_SECRET_KEY environment variable is not set. Fail Closed.")
+        if DEBUG:
+            SECRET_KEY = "dev-secret-key"
+        else:
+            raise RuntimeError("RSN_SECRET_KEY environment variable is not set. Fail Closed.")
 
     # CORS
     BACKEND_CORS_ORIGINS: List[str] = [

@@ -17,7 +17,7 @@ except Exception as e:  # pragma: no cover - light mode fallback
             return {"posebusters_pass": 1.0, "dockq_v2": 0.0, "saxs_rchi2": 1.0}
 from app.instrumentation.metrics import observe_peer_review
 from app.services.mlflow_service import MLflowService
-from backend.app.services.md_refinement import MDRefinementService
+from app.services.md_refinement import MDRefinementService
 
 # Lightweight smoke mode: skip heavy imports (torch/sentence_transformers) if requested
 LIGHT_MODE = os.getenv("RSN_LIGHT_MODE") == "1"

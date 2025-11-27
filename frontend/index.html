@@ -118,10 +118,13 @@
 </head>
 <body>
   <header>
-    <div class="badge">
-      <span>RExSyn Nexus Light</span>
-      <span>Placeholder pipeline</span>
-      <span>MIT</span>
+    <div class="flex items-center gap-3">
+      <img src="/frontend/assets/LOGO.png" alt="RExSyn Nexus Logo" class="h-12 w-12 rounded-lg border border-[#1f2b3a] object-contain bg-[#0f1720]" />
+      <div class="badge">
+        <span>RExSyn Nexus Light</span>
+        <span>Placeholder pipeline</span>
+        <span>MIT</span>
+      </div>
     </div>
     <h1>Ethics-Certified BioAI Demo, Safely Unlocked</h1>
     <p class="lead">
@@ -130,8 +133,8 @@
       MD refinement, reports, and production infra.
     </p>
     <div class="cta">
-      <a class="btn" href="/docs">Open API Docs</a>
-      <a class="btn secondary" href="https://github.com">Request full edition</a>
+      <a id="btn-docs" class="btn" href="/docs" target="_blank" rel="noreferrer">Open API Docs</a>
+      <a id="btn-b2b" class="btn secondary" href="https://github.com" target="_blank" rel="noreferrer">Request full edition</a>
     </div>
     <div>
       <span class="pill">/health</span>
@@ -174,10 +177,50 @@
         <li>Demo predict→status→result flow in README</li>
       </ul>
     </section>
+    <section class="card">
+      <h3>Navigate</h3>
+      <p>Jump to the key demo screens.</p>
+      <ul>
+        <li><a id="link-landing" href="#">Landing page</a></li>
+        <li><a id="link-api-console" href="#">API console</a></li>
+        <li><a id="link-status" href="#">Status & metrics</a></li>
+        <li><a id="link-preview" href="#">Full edition preview</a></li>
+      </ul>
+    </section>
   </main>
 
   <footer>
     Need the full pipeline or a B2B add-on? Reach out and we will enable the production stack and science executors.
   </footer>
+  <script>
+    (() => {
+      const docBtn = document.getElementById("btn-docs");
+      const b2bBtn = document.getElementById("btn-b2b");
+      const origin = window.location.origin;
+      const isFile = origin.startsWith("file:");
+      const base = isFile ? window.location.href.replace(/index\\.html.*/, "") : origin.replace(/\\/$/, "") + "/frontend/";
+
+      if (docBtn) {
+        docBtn.href = `${base}/docs`;
+      }
+      if (b2bBtn) {
+        b2bBtn.href = "https://github.com/flamehaven01/RExSyn-Nexus-light/issues/new?template=b2b-demo.yml";
+      }
+
+      const setHref = (id, path) => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.href = `${base}${path}`;
+          el.target = isFile ? "_self" : "_blank";
+          el.rel = "noreferrer";
+        }
+      };
+
+      setHref("link-landing", "landing/home/code.html");
+      setHref("link-api-console", "api_console/code.html");
+      setHref("link-status", "status_monitoring/code.html");
+      setHref("link-preview", "full_edition_preview/code.html");
+    })();
+  </script>
 </body>
 </html>

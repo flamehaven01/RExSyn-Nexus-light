@@ -1,0 +1,37 @@
+name: "Request B2B demo"
+description: "Ask for a pro/B2B demo of the full RExSyn Nexus edition"
+title: "[B2B Demo] "
+labels: ["demo-request", "B2B"]
+body:
+  - type: markdown
+    attributes:
+      value: "Tell us how to reach you and what you want to see in the full edition."
+  - type: input
+    id: contact
+    attributes:
+      label: Contact email or handle
+      placeholder: you@example.com
+    validations:
+      required: true
+  - type: input
+    id: org
+    attributes:
+      label: Organization / team
+      placeholder: Acme BioAI Lab
+    validations:
+      required: false
+  - type: textarea
+    id: usecase
+    attributes:
+      label: Use case / goals
+      placeholder: "e.g., protein folding validation, MD refinement, SIDRCE compliance review"
+    validations:
+      required: true
+  - type: textarea
+    id: stack
+    attributes:
+      label: Environment hints (optional)
+      placeholder: "Cloud/on-prem, GPU availability, S3/MinIO, Redis/Celery, IdP (JWKS) details"
+    validations:
+      required: false
+

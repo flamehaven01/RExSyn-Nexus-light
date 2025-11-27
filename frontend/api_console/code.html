@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko" class="dark">
+<html lang="en" class="dark">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>RExSyn API 콘솔 (라이트)</title>
+  <title>RExSyn API Console (Light)</title>
   <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,9 +23,9 @@
         <span class="badge">Light Demo</span>
         <span class="badge">/predict → /status → /result</span>
       </div>
-      <h1 class="text-3xl md:text-4xl font-extrabold">API 콘솔 (라이트 모드)</h1>
+      <h1 class="text-3xl md:text-4xl font-extrabold">API Console (Light Mode)</h1>
       <p class="text-slate-300 text-sm md:text-base max-w-3xl">
-        토큰 입력 후 predict → status → result를 연쇄로 호출해보세요. 라이트 모드에서는 placeholder 파이프라인이 실행되며 외부 과학 실행기 없이 즉시 응답합니다.
+        Enter a token and call predict → status → result. In light mode the placeholder pipeline responds immediately with no external executors.
       </p>
     </header>
 
@@ -51,7 +51,7 @@
         <span class="text-sm text-slate-400">job_id: <span id="jobId" class="text-emerald-300"></span></span>
       </div>
       <div class="space-y-2">
-        <label class="text-sm text-slate-300">응답</label>
+        <label class="text-sm text-slate-300">Response</label>
         <pre id="output" class="bg-[#0b111b] border border-[#1f2b3a] rounded-md p-3 text-xs text-slate-200 whitespace-pre-wrap">...</pre>
       </div>
     </section>
@@ -89,14 +89,14 @@
 
     document.getElementById('btnStatus').onclick = async () => {
       const jobId = document.getElementById('jobId').textContent.trim();
-      if (!jobId) return setOutput('job_id가 없습니다. 먼저 /predict를 호출하세요.');
+      if (!jobId) return setOutput('No job_id. Call /predict first.');
       const result = await callApi(`/api/v1/jobs/${jobId}/status`);
       setOutput(result);
     };
 
     document.getElementById('btnResult').onclick = async () => {
       const jobId = document.getElementById('jobId').textContent.trim();
-      if (!jobId) return setOutput('job_id가 없습니다. 먼저 /predict를 호출하세요.');
+      if (!jobId) return setOutput('No job_id. Call /predict first.');
       const result = await callApi(`/api/v1/jobs/${jobId}/result`);
       setOutput(result);
     };

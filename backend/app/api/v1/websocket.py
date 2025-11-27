@@ -12,7 +12,7 @@ import logging
 import json
 import asyncio
 from datetime import datetime
-from fastapi import APIRouter, WebSocket, WebSocketDisconnect, Depends, Query, status, HTTPException
+from fastapi import Depends, Query, status, HTTPException
 from sqlalchemy.orm import Session
 from app.services.auth_service import decode_token, TokenData
 from app.db.database import get_db

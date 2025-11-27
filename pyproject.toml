@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "rexsyn-nexus-light"
-version = "0.4.0"
+version = "0.0.4"
 description = "Light OSS demo of the RExSyn Nexus backend (placeholder science + CTA for full edition)"
 authors = [{name = "YUN", email = "yun@flamehaven.ai"}]
 license = {text = "MIT"}
@@ -37,7 +37,7 @@ dev = [
 testpaths = ["backend/tests"]
 python_files = ["test_*.py"]
 python_functions = ["test_*"]
-addopts = "--cov=backend/app --cov-report=term-missing -q"
+addopts = "--cov=backend/app/api --cov=backend/app/core --cov-report=term-missing --cov-fail-under=45 -q"
 
 [tool.ruff]
 line-length = 120

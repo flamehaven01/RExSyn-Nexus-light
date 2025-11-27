@@ -1,0 +1,40 @@
+name: "Feature request (full edition)"
+description: "Request a feature that belongs in the pro/B2B edition"
+title: "[Full Feature] "
+labels: ["feature", "full-edition"]
+body:
+  - type: markdown
+    attributes:
+      value: "This template is for full-edition features (real science executors, storage, auth, etc.)."
+  - type: input
+    id: contact
+    attributes:
+      label: Contact email or handle
+      placeholder: you@example.com
+    validations:
+      required: false
+  - type: textarea
+    id: summary
+    attributes:
+      label: Feature summary
+      placeholder: "Describe the feature and the problem it solves."
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Details / constraints
+      placeholder: "Science executors, infra (S3/MinIO, Redis/Celery), auth (JWKS), compliance, performance targets"
+    validations:
+      required: false
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      options:
+        - P0 (blocker)
+        - P1 (important)
+        - P2 (nice to have)
+    validations:
+      required: false
+

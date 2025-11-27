@@ -22,4 +22,4 @@ jobs:
           pip install -e .[dev]
 
       - name: Run pytest with coverage
-        run: pytest --cov=backend/app --cov-report=term-missing
+        run: pytest --cov=backend/app/api --cov=backend/app/core --cov-report=term-missing --cov-fail-under=45

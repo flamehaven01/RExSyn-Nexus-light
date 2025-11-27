@@ -15,11 +15,10 @@ import uuid
 from datetime import datetime, timezone
 
 from app.core.rbac import Principal, require_perms
-from app.services.peer_review_service import PeerReviewService
 from app.services.science_service import ScienceService
 from app.instrumentation import metrics
 from app.db.database import SessionLocal
-from app.db.models import Job, JobStatus, Result, calculate_job_expiration, Organization
+from app.db.models import Job, Result, calculate_job_expiration, Organization
 from app.tasks.prediction_tasks import run_structure_prediction
 
 logger = logging.getLogger(__name__)
@@ -154,7 +153,7 @@ class PredictionResponse(BaseModel):
     message: str = Field(..., description="Status message")
 
 
-class JobStatus(BaseModel):
+class JobStatusResponse(BaseModel):
     """Job status response."""
     job_id: str
     status: str  # queued, running, completed, failed
@@ -306,7 +305,7 @@ async def submit_prediction(
 
 @router.get(
     "/jobs/{job_id}/status",
-    response_model=JobStatus,
+    response_model=JobStatusResponse,
     summary="Get job status",
     description="Get real-time status and metrics for a prediction job"
 )
@@ -347,7 +346,7 @@ async def get_job_status(
                 "policy_compliance": result.policy_compliance,
             }
 
-        return JobStatus(
+        return JobStatusResponse(
             job_id=job_id,
             status=job.status.value if hasattr(job.status, "value") else job.status,
             progress=job.progress or 0.0,

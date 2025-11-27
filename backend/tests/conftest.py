@@ -13,6 +13,9 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+import pytest  # noqa: E402
+from app.db.database import init_db  # noqa: E402
+
 # Minimal environment for local tests (no external services required)
 os.environ.setdefault("RSN_SECRET_KEY", "test-secret-key")
 os.environ.setdefault("JWT_SECRET_KEY", "test-jwt-secret-key")
@@ -23,3 +26,8 @@ os.environ.setdefault("RSN_JWKS_URL", "local")
 os.environ.setdefault("MLFLOW_TRACKING_URI", "")
 os.environ.setdefault("MINIO_ENDPOINT", "")
 
+
+@pytest.fixture(scope="session", autouse=True)
+def _init_db():
+    """Create SQLite tables for API/core tests."""
+    init_db()

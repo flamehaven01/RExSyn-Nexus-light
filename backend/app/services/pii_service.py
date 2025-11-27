@@ -31,7 +31,6 @@ except Exception as e:  # pragma: no cover
     Redis = None  # type: ignore
     logging.getLogger(__name__).warning("Redis client unavailable: %s", e)
 from sqlalchemy.orm import Session
-from app.core.db import get_db
 from app.db.database import SessionLocal
 from app.models.job import Job
 from app.core.config import settings

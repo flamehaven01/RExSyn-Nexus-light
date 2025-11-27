@@ -1,0 +1,63 @@
+project_name: "rexsyn-nexus-light"
+version: "0.1.0"
+description: "Placeholder-only demo API for RExSyn Nexus Light"
+author: "Flamehaven"
+license: "MIT"
+architecture:
+  type: "fastapi_service"
+  database:
+    type: "sqlite"
+    orm: "sqlmodel"
+
+domain_models:
+  - name: "Health"
+    fields:
+      - name: "status"
+        type: "str"
+        primary_key: false
+        default: "ok"
+  - name: "Job"
+    fields:
+      - name: "id"
+        type: "int"
+        primary_key: true
+      - name: "status"
+        type: "str"
+        default: "queued"
+      - name: "sequence"
+        type: "str"
+      - name: "method"
+        type: "str"
+      - name: "created_at"
+        type: "datetime"
+        default: "datetime.utcnow()"
+  - name: "Result"
+    fields:
+      - name: "id"
+        type: "int"
+        primary_key: true
+      - name: "job_id"
+        type: "int"
+        foreign_key: "job.id"
+      - name: "dockq_score"
+        type: "float"
+        default: 0.0
+      - name: "saxs_chi2"
+        type: "float"
+        default: 0.0
+      - name: "notes"
+        type: "str"
+        default: "placeholder"
+
+api_endpoints:
+  - path: "/health"
+    method: "GET"
+    name: "health_check"
+    description: "Health check"
+    response_model: "Health"
+  - path: "/predict"
+    method: "POST"
+    name: "submit_predict"
+    description: "Submit placeholder prediction job"
+    request_model: "Job"
+    response_model: "Job"

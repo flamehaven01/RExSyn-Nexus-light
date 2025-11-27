@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>RExSyn Nexus Light Demo</title>
+  <style>
+    :root {
+      --bg: #0f1720;
+      --panel: #121c28;
+      --accent: #4dd2a5;
+      --text: #e7eef7;
+      --muted: #9ab0c8;
+      --border: #1f2b3a;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    header {
+      padding: 48px 24px 16px;
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      color: var(--muted);
+      background: rgba(255,255,255,0.02);
+      font-size: 13px;
+    }
+    h1 {
+      margin: 16px 0 8px;
+      font-size: 40px;
+      letter-spacing: -0.02em;
+    }
+    p.lead {
+      max-width: 760px;
+      color: var(--muted);
+      font-size: 17px;
+      margin: 0 0 24px;
+    }
+    .cta {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 18px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--text);
+      background: linear-gradient(135deg, var(--accent), #3aa57f);
+      box-shadow: 0 10px 30px rgba(77,210,165,0.2);
+    }
+    .btn.secondary {
+      background: transparent;
+      border-color: var(--border);
+      color: var(--muted);
+      box-shadow: none;
+    }
+    main {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 24px 64px;
+      display: grid;
+      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    }
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px 18px 20px;
+    }
+    .card h3 { margin: 0 0 10px; font-size: 18px; }
+    .card p { margin: 0 0 10px; color: var(--muted); font-size: 15px; }
+    ul {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+    footer {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 16px 24px 48px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .pill {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 12px;
+      margin-right: 6px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="badge">
+      <span>RExSyn Nexus Light</span>
+      <span>Placeholder pipeline</span>
+      <span>MIT</span>
+    </div>
+    <h1>Ethics-Certified BioAI Demo, Safely Unlocked</h1>
+    <p class="lead">
+      This light profile runs a placeholder pipeline so you can explore the API surface, JWT flow, and monitoring
+      without external executors or secrets. The full edition adds real structure prediction, scientific validation,
+      MD refinement, reports, and production infra.
+    </p>
+    <div class="cta">
+      <a class="btn" href="/docs">Open API Docs</a>
+      <a class="btn secondary" href="https://github.com">Request full edition</a>
+    </div>
+    <div>
+      <span class="pill">/health</span>
+      <span class="pill">/api/v1/predict</span>
+      <span class="pill">/api/v1/jobs/{id}/status</span>
+      <span class="pill">/metrics</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="card">
+      <h3>Light Edition</h3>
+      <p>Safe defaults, no external services. Perfect for demo and sandbox.</p>
+      <ul>
+        <li>Placeholder compute (ALLOW_PLACEHOLDER_PIPELINE=1)</li>
+        <li>SQLite by default</li>
+        <li>JWT local mode (demo token)</li>
+        <li>Metrics exposed at /metrics</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h3>Full Edition (CTA)</h3>
+      <p>Activate the full BioAI stack for production.</p>
+      <ul>
+        <li>Structure prediction (AlphaFold/ESM) + DockQ/SAXS validation</li>
+        <li>MD refinement + academic PDF reports</li>
+        <li>JWKS auth, Redis/Celery, Postgres, MinIO/S3, MLflow</li>
+        <li>SIDRCE + Spicy audit gates</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h3>Quick Start</h3>
+      <p>Run locally with placeholders.</p>
+      <ul>
+        <li>pip install -e .[dev]</li>
+        <li>run_light.ps1 (uses your venv python)</li>
+        <li>curl http://127.0.0.1:8000/health</li>
+        <li>Demo predict→status→result flow in README</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    Need the full pipeline or a B2B add-on? Reach out and we will enable the production stack and science executors.
+  </footer>
+</body>
+</html>

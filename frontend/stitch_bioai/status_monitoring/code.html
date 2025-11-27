@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Status & Metrics | RExSyn Light</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { color-scheme: dark; }
+    body { font-family: 'Inter', system-ui, sans-serif; background:#0f1720; color:#e7eef7; }
+    .panel { background:#121c28; border:1px solid #1f2b3a; border-radius:12px; }
+    .pill { border:1px solid #1f2b3a; border-radius:999px; padding:6px 12px; color:#9ab0c8; font-size:12px; }
+  </style>
+</head>
+<body class="min-h-screen">
+  <div class="max-w-5xl mx-auto px-4 py-8 space-y-8">
+    <header class="space-y-3">
+      <div class="flex flex-wrap gap-2">
+        <span class="pill">Status</span>
+        <span class="pill">Metrics</span>
+        <span class="pill">Light Mode</span>
+      </div>
+      <h1 class="text-3xl md:text-4xl font-extrabold">Health & Metrics (Light)</h1>
+      <p class="text-slate-300 text-sm md:text-base max-w-3xl">
+        Fetch live health and Prometheus gauges from the running light backend. In placeholder mode, Redis/MinIO checks are skipped.
+      </p>
+    </header>
+
+    <section class="panel p-4 space-y-4">
+      <div class="grid md:grid-cols-2 gap-3">
+        <div class="space-y-2">
+          <label class="text-sm text-slate-300">API Base URL</label>
+          <input id="base" class="w-full rounded-md px-3 py-2 bg-[#0f1823] border border-[#1f2b3a]" />
+        </div>
+        <div class="flex items-end gap-2">
+          <button id="btnHealth" class="bg-emerald-400 hover:bg-emerald-300 text-slate-900 font-semibold px-4 py-2 rounded-md">/health</button>
+          <button id="btnMetrics" class="bg-slate-800 hover:bg-slate-700 text-slate-100 font-semibold px-4 py-2 rounded-md">/metrics</button>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-3">
+        <div class="panel p-3 space-y-2 border border-[#1f2b3a]">
+          <div class="flex items-center justify-between">
+            <h3 class="font-semibold">Health</h3>
+            <span id="healthStatus" class="pill">n/a</span>
+          </div>
+          <pre id="healthOut" class="bg-[#0b111b] border border-[#1f2b3a] rounded-md p-3 text-xs text-slate-200 whitespace-pre-wrap">...</pre>
+        </div>
+        <div class="panel p-3 space-y-2 border border-[#1f2b3a]">
+          <div class="flex items-center justify-between">
+            <h3 class="font-semibold">Metrics (rsn_*)</h3>
+            <span class="pill">Prometheus text</span>
+          </div>
+          <pre id="metricsOut" class="bg-[#0b111b] border border-[#1f2b3a] rounded-md p-3 text-xs text-slate-200 whitespace-pre-wrap">...</pre>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const baseInput = document.getElementById('base');
+    baseInput.value = window.location.origin;
+
+    async function fetchText(path) {
+      const base = baseInput.value.trim() || window.location.origin;
+      const res = await fetch(base + path);
+      const text = await res.text();
+      let parsed = null;
+      try { parsed = JSON.parse(text); } catch (_) {}
+      return { status: res.status, raw: text, json: parsed };
+    }
+
+    function setHealth(data) {
+      const badge = document.getElementById('healthStatus');
+      const out = document.getElementById('healthOut');
+      badge.textContent = data.json?.status || data.status;
+      badge.style.color = data.json?.status === 'healthy' ? '#0f1720' : '#e7eef7';
+      badge.style.background = data.json?.status === 'healthy' ? '#4dd2a5' : '#1f2b3a';
+      out.textContent = data.json ? JSON.stringify(data.json, null, 2) : data.raw;
+    }
+
+    function parseMetrics(text) {
+      const lines = text.split('\n');
+      const rsn = lines.filter(l => l.startsWith('rsn_'));
+      return rsn.join('\n');
+    }
+
+    document.getElementById('btnHealth').onclick = async () => {
+      const res = await fetchText('/health');
+      setHealth(res);
+    };
+
+    document.getElementById('btnMetrics').onclick = async () => {
+      const res = await fetchText('/metrics');
+      document.getElementById('metricsOut').textContent = parseMetrics(res.raw);
+    };
+  </script>
+</body>
+</html>

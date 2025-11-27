@@ -1,0 +1,72 @@
+Metadata-Version: 2.4
+Name: rexsyn-nexus-light
+Version: 0.4.0
+Summary: Light OSS demo of the RExSyn Nexus backend (placeholder science + CTA for full edition)
+Author-email: YUN <yun@flamehaven.ai>
+License: MIT
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: fastapi<1.0,>=0.110
+Requires-Dist: uvicorn<1.0,>=0.23
+Requires-Dist: pydantic<3.0,>=2.6
+Requires-Dist: email-validator<3.0,>=2.2
+Requires-Dist: numpy<2.0,>=1.26
+Requires-Dist: sqlalchemy<3.0,>=2.0
+Requires-Dist: python-multipart>=0.0.9
+Requires-Dist: passlib[bcrypt]<2.0,>=1.7
+Requires-Dist: python-jose<4.0,>=3.3
+Requires-Dist: prometheus-client<1.0,>=0.19
+Requires-Dist: redis<6.0,>=5.0
+Provides-Extra: dev
+Requires-Dist: pytest>=8.2; extra == "dev"
+Requires-Dist: httpx>=0.25; extra == "dev"
+Requires-Dist: ruff>=0.6; extra == "dev"
+Dynamic: license-file
+
+# RExSyn Nexus Light (Demo Profile)
+
+Purpose: Safe, open demo profile with placeholders only. The full version includes real structure prediction, scientific validation, MD, report generation, and production deployment assets. Contact us for the full edition.
+
+## What’s in this light profile
+- Placeholder pipeline enabled (`ALLOW_PLACEHOLDER_PIPELINE=1`) for fast demos.
+- External executors (DockQ/SAXS/PoseBusters) disabled by default.
+- No secrets or production configs.
+
+## Quick Run (dev/demo)
+```powershell
+$env:ALLOW_PLACEHOLDER_PIPELINE="1"
+$env:RSN_JWKS_URL="local"
+$env:RSN_SECRET_KEY="demo-secret"
+$env:JWT_SECRET_KEY="demo-jwt"
+python -m uvicorn app.main:app --port 8000
+```
+Use the demo token from the main README “LOCAL RUN” section.
+
+## Demo script (PowerShell)
+```powershell
+$token = "<demo-token>"
+$body  = '{"sequence":"ACDEFGHIKLMNPQRSTVWY","experiment_type":"protein_folding","method":"alphafold3"}'
+$port  = 8000
+
+$resp = Invoke-RestMethod -Method Post `
+  -Uri "http://127.0.0.1:$port/api/v1/predict" `
+  -Headers @{ Authorization = "Bearer $token" } `
+  -ContentType "application/json" `
+  -Body $body
+
+$job = $resp.job_id
+Write-Host "job_id:" $job
+Invoke-RestMethod -Uri "http://127.0.0.1:$port/api/v1/jobs/$job/status" `
+  -Headers @{ Authorization = "Bearer $token" }
+Invoke-RestMethod -Uri "http://127.0.0.1:$port/api/v1/jobs/$job/result" `
+  -Headers @{ Authorization = "Bearer $token" }
+```
+
+## Full edition (contact us)
+- Real structure prediction executors, scientific validation (DockQ/SAXS/PoseBusters), MD refinement, report generation.
+- Production-ready JWKS auth, MinIO/S3, MLflow, Helm/monitoring assets.
+- Plug-in/add-on friendly architecture.
+
+## Wiki / Preview of Full Edition
+- See `WIKI.md` for a side-by-side view (Light vs Full features) and how to upgrade to the pro/B2B edition.

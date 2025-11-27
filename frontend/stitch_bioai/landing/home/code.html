@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RExSyn Nexus Light</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root { color-scheme: dark; }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: #0f1720;
+      color: #e7eef7;
+    }
+    .glass {
+      background: rgba(18, 28, 40, 0.9);
+      border: 1px solid #1f2b3a;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+    }
+    .pill {
+      border: 1px solid #1f2b3a;
+      border-radius: 999px;
+      padding: 6px 12px;
+      color: #9ab0c8;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body class="min-h-screen">
+  <div class="max-w-6xl mx-auto px-4 py-8 space-y-10">
+    <!-- Hero -->
+    <header class="space-y-4">
+      <div class="flex flex-wrap gap-2">
+        <span class="pill">RExSyn Nexus Light</span>
+        <span class="pill">Placeholder Pipeline</span>
+        <span class="pill">MIT</span>
+      </div>
+      <h1 class="text-4xl md:text-5xl font-extrabold leading-tight">
+        BioAI Light Edition: safely explore the API, then scale to the Full Edition.
+      </h1>
+      <p class="text-lg text-slate-300 max-w-3xl">
+        The light edition runs a placeholder pipeline with no external executors or secrets, so you can try the
+        /predict → /status → /result flow safely. The full edition enables real structure prediction, scientific
+        validation, MD refinement, reports, and production infra.
+      </p>
+      <div class="flex flex-wrap gap-3">
+        <a href="/docs" class="inline-flex items-center px-4 py-2 rounded-lg font-semibold text-slate-900 bg-emerald-400 hover:bg-emerald-300 transition">
+          Open API Docs
+        </a>
+        <a href="https://github.com" class="inline-flex items-center px-4 py-2 rounded-lg font-semibold border border-slate-600 text-slate-200 hover:border-emerald-400 transition">
+          Request Full Edition
+        </a>
+        <div class="flex flex-wrap gap-2 items-center">
+          <span class="pill">/health</span>
+          <span class="pill">/api/v1/predict</span>
+          <span class="pill">/api/v1/jobs/{id}/status</span>
+          <span class="pill">/metrics</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Edition comparison -->
+    <section class="grid md:grid-cols-2 gap-4">
+      <div class="glass rounded-xl p-6 space-y-3">
+        <div class="flex items-center justify-between">
+          <h2 class="text-xl font-bold">Lite Edition</h2>
+          <span class="pill">Demo</span>
+        </div>
+        <p class="text-slate-300 text-sm">Safe local/demo profile</p>
+        <ul class="space-y-2 text-sm text-slate-200">
+          <li>• ALLOW_PLACEHOLDER_PIPELINE=1 (science executors off)</li>
+          <li>• SQLite default, local JWT (local JWKS) demo token</li>
+          <li>• /metrics exposed, Redis/MinIO checks skipped in /health</li>
+          <li>• Only 2 smoke tests (pytest)</li>
+        </ul>
+      </div>
+      <div class="glass rounded-xl p-6 space-y-3 border border-emerald-400">
+        <div class="flex items-center justify-between">
+          <h2 class="text-xl font-bold">Full Edition</h2>
+          <span class="pill bg-emerald-500 text-slate-900 border-emerald-400">Recommended</span>
+        </div>
+        <p class="text-slate-300 text-sm">Enterprise-grade research/ops</p>
+        <ul class="space-y-2 text-sm text-slate-200">
+          <li>• Structure prediction (AlphaFold/ESM) + DockQ/SAXS/PoseBusters</li>
+          <li>• MD refinement, PDF reports, MinIO/S3 artifacts, MLflow</li>
+          <li>• JWKS RBAC, Redis/Celery, Postgres, Helm/monitoring</li>
+          <li>• SIDRCE + SpicyFileReview gates</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Quick start -->
+    <section class="glass rounded-xl p-6 space-y-4">
+      <div class="flex items-center justify-between">
+        <h3 class="text-lg font-bold">Quick Start (Light)</h3>
+        <span class="pill">Setup in 5 minutes</span>
+      </div>
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="text-sm space-y-2">
+          <p class="text-slate-300">Install</p>
+          <pre class="bg-slate-900/70 border border-slate-700 rounded-lg p-3 whitespace-pre-wrap text-slate-200 text-xs">
+pip install -e .[dev]
+# or
+pip install -r requirements.txt
+          </pre>
+          <p class="text-slate-300">Run (PowerShell)</p>
+          <pre class="bg-slate-900/70 border border-slate-700 rounded-lg p-3 whitespace-pre-wrap text-slate-200 text-xs">
+$env:ALLOW_PLACEHOLDER_PIPELINE="1"
+$env:RSN_JWKS_URL="local"
+$env:RSN_SECRET_KEY="demo-secret"
+$env:JWT_SECRET_KEY="demo-jwt"
+$env:DATABASE_URL="sqlite:///D:/Sanctum/tmp/rsn-light.db"
+./run_light.ps1   # uses your venv python if activated
+          </pre>
+        </div>
+        <div class="text-sm space-y-2">
+          <p class="text-slate-300">Health & predict</p>
+          <pre class="bg-slate-900/70 border border-slate-700 rounded-lg p-3 whitespace-pre-wrap text-slate-200 text-xs">
+curl http://127.0.0.1:8000/health
+curl -X POST http://127.0.0.1:8000/api/v1/predict ^
+  -H "Authorization: Bearer &lt;demo-token&gt;" ^
+  -H "Content-Type: application/json" ^
+  --data '{"sequence":"ACDEFGHIKLMNPQRSTVWY",
+           "experiment_type":"protein_folding",
+           "method":"alphafold3"}'
+          </pre>
+          <p class="text-slate-300">Tests</p>
+          <pre class="bg-slate-900/70 border border-slate-700 rounded-lg p-3 whitespace-pre-wrap text-slate-200 text-xs">
+pytest   # 2 smoke tests
+          </pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA footer -->
+    <footer class="glass rounded-xl p-6 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+      <div>
+        <p class="font-semibold text-lg">Full edition / B2B</p>
+        <p class="text-slate-300 text-sm">Need real science executors, reports, infra, and audit gates? Contact us.</p>
+      </div>
+      <div class="flex gap-2">
+        <a href="https://github.com" class="inline-flex items-center px-4 py-2 rounded-lg font-semibold text-slate-900 bg-emerald-400 hover:bg-emerald-300 transition">
+          Contact / Request Full
+        </a>
+        <a href="/docs" class="inline-flex items-center px-4 py-2 rounded-lg font-semibold border border-slate-600 text-slate-200 hover:border-emerald-400 transition">
+          API Docs
+        </a>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

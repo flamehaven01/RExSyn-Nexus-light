@@ -1,0 +1,239 @@
+{
+  "project_name": "rexsyn-nexus-light",
+  "version": "0.1.0",
+  "description": "Placeholder-only demo API for RExSyn Nexus Light",
+  "author": "Flamehaven",
+  "license": "MIT",
+  "architecture": {
+    "type": "fastapi_service",
+    "database": {
+      "type": "sqlite",
+      "orm": "sqlmodel",
+      "url": null
+    },
+    "cache": null,
+    "async_runtime": {
+      "enabled": true,
+      "worker_count": null,
+      "timeout_seconds": 30
+    }
+  },
+  "domain_models": [
+    {
+      "name": "Health",
+      "fields": [
+        {
+          "name": "status",
+          "type": "str",
+          "primary_key": false,
+          "unique": false,
+          "required": true,
+          "default": "ok",
+          "foreign_key": null
+        }
+      ],
+      "description": null
+    },
+    {
+      "name": "Job",
+      "fields": [
+        {
+          "name": "id",
+          "type": "int",
+          "primary_key": true,
+          "unique": false,
+          "required": true,
+          "default": null,
+          "foreign_key": null
+        },
+        {
+          "name": "status",
+          "type": "str",
+          "primary_key": false,
+          "unique": false,
+          "required": true,
+          "default": "queued",
+          "foreign_key": null
+        },
+        {
+          "name": "sequence",
+          "type": "str",
+          "primary_key": false,
+          "unique": false,
+          "required": true,
+          "default": null,
+          "foreign_key": null
+        },
+        {
+          "name": "method",
+          "type": "str",
+          "primary_key": false,
+          "unique": false,
+          "required": true,
+          "default": null,
+          "foreign_key": null
+        },
+        {
+          "name": "created_at",
+          "type": "datetime",
+          "primary_key": false,
+          "unique": false,
+          "required": true,
+          "default": "datetime.utcnow()",
+          "foreign_key": null
+        }
+      ],
+      "description": null
+    },
+    {
+      "name": "Result",
+      "fields": [
+        {
+          "name": "id",
+          "type": "int",
+          "primary_key": true,
+          "unique": false,
+          "required": true,
+          "default": null,
+          "foreign_key": null
+        },
+        {
+          "name": "job_id",
+          "type": "int",
+          "primary_key": false,
+          "unique": false,
+          "required": true,
+          "default": null,
+          "foreign_key": "job.id"
+        },
+        {
+          "name": "dockq_score",
+          "type": "float",
+          "primary_key": false,
+          "unique": false,
+          "required": true,
+          "default": 0.0,
+          "foreign_key": null
+        },
+        {
+          "name": "saxs_chi2",
+          "type": "float",
+          "primary_key": false,
+          "unique": false,
+          "required": true,
+          "default": 0.0,
+          "foreign_key": null
+        },
+        {
+          "name": "notes",
+          "type": "str",
+          "primary_key": false,
+          "unique": false,
+          "required": true,
+          "default": "placeholder",
+          "foreign_key": null
+        }
+      ],
+      "description": null
+    }
+  ],
+  "api_endpoints": [
+    {
+      "path": "/health",
+      "method": "GET",
+      "name": "health_check",
+      "description": "Health check",
+      "request_model": null,
+      "request_body": null,
+      "response_model": "Health",
+      "requires_auth": false,
+      "rate_limit": null,
+      "pagination": null,
+      "path_params": null,
+      "query_params": null,
+      "tags": null
+    },
+    {
+      "path": "/predict",
+      "method": "POST",
+      "name": "submit_predict",
+      "description": "Submit placeholder prediction job",
+      "request_model": "Job",
+      "request_body": null,
+      "response_model": "Job",
+      "requires_auth": false,
+      "rate_limit": null,
+      "pagination": null,
+      "path_params": null,
+      "query_params": null,
+      "tags": null
+    }
+  ],
+  "generation_quality_targets": {
+    "omega": {
+      "models_threshold": 0.92,
+      "endpoints_threshold": 0.9,
+      "overall_threshold": 0.9
+    },
+    "q_tensor": {
+      "coverage_threshold": 0.85,
+      "mutation_score_threshold": 0.8,
+      "performance_threshold": 0.85,
+      "assertion_quality_threshold": 0.9,
+      "coherence_threshold": 0.85,
+      "q_overall_threshold": 0.91
+    },
+    "sr9_drift_tolerance": 0.02,
+    "fti_ratio_threshold": 1.0
+  },
+  "constitutional_mandates": {
+    "safety_level": "standard",
+    "license_type": "mit",
+    "gdpr_required": false,
+    "custom_mandates": []
+  },
+  "modal_composition": {
+    "modals": []
+  },
+  "skill_orchestration": {
+    "skills": []
+  },
+  "compression_strategy": {
+    "enabled": true,
+    "gravitas_level": "balanced",
+    "target_token_reduction": 0.65
+  },
+  "governance": {
+    "sidrce_gate": {
+      "enabled": true,
+      "omega_score_threshold": 0.9,
+      "q_score_threshold": 0.91,
+      "test_coverage_threshold": 0.85,
+      "fail_on_drift": true,
+      "require_certification": true,
+      "allow_degraded_mode": false
+    },
+    "constitutional_mandates": {
+      "safety_level": "standard",
+      "license_type": "mit",
+      "gdpr_required": false,
+      "custom_mandates": []
+    },
+    "performance_slo": {
+      "p99_latency_ms": 200,
+      "p95_latency_ms": 100,
+      "p50_latency_ms": 50,
+      "throughput_rps": 100,
+      "error_rate_threshold": 0.01,
+      "uptime_percentage": 0.999
+    }
+  },
+  "audit_trail": {
+    "enabled": true,
+    "depth": "complete",
+    "immutable": true
+  },
+  "drift_tolerance": 0.02,
+  "enable_leda_learning": true,
+  "created_at": "2025-11-26T08:31:15.341383"
+}

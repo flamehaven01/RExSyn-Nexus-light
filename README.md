@@ -12,11 +12,14 @@
 
 ## Quick links
 - ⭐ **Star/Fork**: https://github.com/flamehaven01/RExSyn-Nexus-light
-- 🧭 **Live tour**: Open `frontend/landing/home/code.html` or `http://localhost:8000/ui` when the backend is running.
+- 🧭 **Live tour**:
+  - Backend running: `http://localhost:8000/ui`
+  - Offline demo: Open `frontend/index.html` in browser
+  - Pages: Landing (`landing/code.html`), API Console (`api_console/code.html`), Status Monitoring (`status_monitoring/code.html`)
 - 📕 **Wiki (Light vs Full)**: `WIKI.md`
 - 🛠 **Local run**: `LOCAL_RUN.md`
-- 📬 **Contact**: yun@flamehaven.ai
-- 🏷️ **GitHub topics (set in repo settings):** `fastapi`, `bioai`, `demo`, `sidrce`, `light-edition`
+- 📬 **Contact**: info@flamehaven.space or [open B2B request issue](https://github.com/flamehaven01/RExSyn-Nexus-light/issues/new?labels=b2b-request&template=b2b_request.md&title=B2B%20Full%20Edition%20Request)
+- 🏷️ **GitHub topics:** `bioai`, `fastapi`, `protein-structure`, `alphafold`, `molecular-dynamics`, `demo`, `ethics-certified`, `light-edition`
 
 ## Features (Light)
 - Placeholder pipeline only (`ALLOW_PLACEHOLDER_PIPELINE=1`) for fast demos.
@@ -107,8 +110,8 @@ Invoke-RestMethod -Uri "http://127.0.0.1:$port/api/v1/jobs/$job/result" `
 - SIDRCE + Spicy audits available in the full edition only.
 
 ## Request B2B demo
-- Email: yun@flamehaven.ai
-- Open an issue with the “Request B2B demo” template (Issues → New → B2B Demo Request).
+- Email: info@flamehaven.space
+- Open an issue with the "Request B2B demo" template (Issues → New → B2B Demo Request).
 
 ## Made for labs/clinics/testing teams
 - Quick eval of API + UI without heavy infra.

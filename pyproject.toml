@@ -10,7 +10,7 @@ exclude = ["frontend*"]
 name = "rexsyn-nexus-light"
 version = "0.0.4"
 description = "Light OSS demo of the RExSyn Nexus backend (placeholder science + CTA for full edition)"
-authors = [{name = "YUN", email = "yun@flamehaven.ai"}]
+authors = [{name = "Flamehaven", email = "info@flamehaven.space"}]
 license = {text = "MIT"}
 readme = "README.md"
 requires-python = ">=3.11"

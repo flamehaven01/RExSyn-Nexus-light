@@ -38,6 +38,7 @@
         <div class="flex items-end gap-2">
           <button id="btnHealth" class="bg-emerald-400 hover:bg-emerald-300 text-slate-900 font-semibold px-4 py-2 rounded-md">/health</button>
           <button id="btnMetrics" class="bg-slate-800 hover:bg-slate-700 text-slate-100 font-semibold px-4 py-2 rounded-md">/metrics</button>
+          <button id="btnTogglePolling" class="bg-slate-800 hover:bg-slate-700 text-slate-100 font-semibold px-4 py-2 rounded-md">Auto-Refresh (5s)</button>
         </div>
       </div>
 
@@ -64,38 +65,96 @@
     const baseInput = document.getElementById('base');
     baseInput.value = window.location.origin;
 
+    let pollingInterval = null;
+    let isPolling = false;
+
     async function fetchText(path) {
       const base = baseInput.value.trim() || window.location.origin;
-      const res = await fetch(base + path);
-      const text = await res.text();
-      let parsed = null;
-      try { parsed = JSON.parse(text); } catch (_) {}
-      return { status: res.status, raw: text, json: parsed };
+      try {
+        const res = await fetch(base + path);
+        const text = await res.text();
+        let parsed = null;
+        try { parsed = JSON.parse(text); } catch (_) {}
+        return { status: res.status, raw: text, json: parsed, error: false };
+      } catch (e) {
+        return { status: 0, raw: `Network Error: ${e.message}`, json: null, error: true };
+      }
     }
 
     function setHealth(data) {
       const badge = document.getElementById('healthStatus');
       const out = document.getElementById('healthOut');
-      badge.textContent = data.json?.status || data.status;
-      badge.style.color = data.json?.status === 'healthy' ? '#0f1720' : '#e7eef7';
-      badge.style.background = data.json?.status === 'healthy' ? '#4dd2a5' : '#1f2b3a';
-      out.textContent = data.json ? JSON.stringify(data.json, null, 2) : data.raw;
+
+      if (data.error) {
+        badge.textContent = 'error';
+        badge.style.color = '#e7eef7';
+        badge.style.background = '#dc2626';
+        out.textContent = data.raw;
+        out.style.color = '#f87171';
+      } else {
+        badge.textContent = data.json?.status || data.status;
+        badge.style.color = data.json?.status === 'healthy' ? '#0f1720' : '#e7eef7';
+        badge.style.background = data.json?.status === 'healthy' ? '#4dd2a5' : '#1f2b3a';
+        out.textContent = data.json ? JSON.stringify(data.json, null, 2) : data.raw;
+        out.style.color = '#e7eef7';
+      }
     }
 
     function parseMetrics(text) {
       const lines = text.split('\n');
       const rsn = lines.filter(l => l.startsWith('rsn_'));
-      return rsn.join('\n');
+      return rsn.length > 0 ? rsn.join('\n') : 'No rsn_* metrics found';
     }
 
-    document.getElementById('btnHealth').onclick = async () => {
+    async function refreshHealth() {
       const res = await fetchText('/health');
       setHealth(res);
-    };
+    }
+
+    function startPolling() {
+      if (pollingInterval) return;
+      isPolling = true;
+      const btn = document.getElementById('btnTogglePolling');
+      btn.textContent = 'Stop Auto-Refresh';
+      btn.style.background = '#4dd2a5';
+      btn.style.color = '#0f1720';
+
+      refreshHealth(); // Immediate first call
+      pollingInterval = setInterval(refreshHealth, 5000);
+    }
+
+    function stopPolling() {
+      if (!pollingInterval) return;
+      isPolling = false;
+      clearInterval(pollingInterval);
+      pollingInterval = null;
+
+      const btn = document.getElementById('btnTogglePolling');
+      btn.textContent = 'Auto-Refresh (5s)';
+      btn.style.background = '#121c28';
+      btn.style.color = '#e7eef7';
+    }
+
+    document.getElementById('btnHealth').onclick = refreshHealth;
 
     document.getElementById('btnMetrics').onclick = async () => {
       const res = await fetchText('/metrics');
-      document.getElementById('metricsOut').textContent = parseMetrics(res.raw);
+      const out = document.getElementById('metricsOut');
+      if (res.error) {
+        out.textContent = res.raw;
+        out.style.color = '#f87171';
+      } else {
+        out.textContent = parseMetrics(res.raw);
+        out.style.color = '#e7eef7';
+      }
+    };
+
+    document.getElementById('btnTogglePolling').onclick = () => {
+      if (isPolling) {
+        stopPolling();
+      } else {
+        startPolling();
+      }
     };
   </script>
 </body>

@@ -58,6 +58,9 @@
   </div>
 
   <script>
+    // Request history storage
+    const requestHistory = JSON.parse(localStorage.getItem('rsn_request_history') || '[]');
+
     async function callApi(path, options = {}) {
       const base = document.getElementById('base').value.trim() || window.location.origin;
       const token = document.getElementById('token').value.trim();
@@ -65,45 +68,109 @@
         'Content-Type': 'application/json',
         'Authorization': token ? `Bearer ${token}` : ''
       }, options.headers || {});
-      const res = await fetch(`${base}${path}`, { ...options, headers });
-      const text = await res.text();
-      try { return { status: res.status, body: JSON.parse(text) }; }
-      catch { return { status: res.status, body: text }; }
+
+      try {
+        const res = await fetch(`${base}${path}`, { ...options, headers });
+        const text = await res.text();
+        try { return { status: res.status, body: JSON.parse(text) }; }
+        catch { return { status: res.status, body: text }; }
+      } catch (e) {
+        return { status: 0, body: `Network Error: ${e.message}`, error: true };
+      }
     }
 
     function setOutput(data) {
       const el = document.getElementById('output');
-      el.textContent = typeof data === 'string' ? data : JSON.stringify(data, null, 2);
+      if (typeof data === 'string') {
+        el.textContent = data;
+      } else if (data.error) {
+        el.textContent = `[!] ERROR: ${data.body}`;
+        el.style.color = '#f87171';
+      } else if (data.status >= 400) {
+        el.textContent = `[!] HTTP ${data.status}: ${JSON.stringify(data.body, null, 2)}`;
+        el.style.color = '#fbbf24';
+      } else {
+        el.textContent = JSON.stringify(data, null, 2);
+        el.style.color = '#e7eef7';
+      }
+    }
+
+    function saveToHistory(endpoint, method, request, response) {
+      const entry = {
+        timestamp: new Date().toISOString(),
+        endpoint,
+        method,
+        request,
+        response: response.status,
+        jobId: response.body?.job_id || null
+      };
+      requestHistory.unshift(entry);
+      if (requestHistory.length > 20) requestHistory.pop();
+      localStorage.setItem('rsn_request_history', JSON.stringify(requestHistory));
     }
 
     document.getElementById('btnPredict').onclick = async () => {
       try {
         const bodyText = document.getElementById('body').value;
+        let bodyJson;
+        try {
+          bodyJson = JSON.parse(bodyText);
+        } catch (e) {
+          return setOutput(`[!] Invalid JSON: ${e.message}`);
+        }
+
         const result = await callApi('/api/v1/predict', { method: 'POST', body: bodyText });
         setOutput(result);
+
+        if (result.error) return;
+
+        if (result.status >= 400) {
+          saveToHistory('/api/v1/predict', 'POST', bodyJson, result);
+          return;
+        }
+
         if (result.body && result.body.job_id) {
           document.getElementById('jobId').textContent = result.body.job_id;
+          saveToHistory('/api/v1/predict', 'POST', bodyJson, result);
         }
-      } catch (e) { setOutput(e.toString()); }
+      } catch (e) {
+        setOutput(`[!] Unexpected Error: ${e.toString()}`);
+      }
     };
 
     document.getElementById('btnStatus').onclick = async () => {
       const jobId = document.getElementById('jobId').textContent.trim();
-      if (!jobId) return setOutput('No job_id. Call /predict first.');
-      const result = await callApi(`/api/v1/jobs/${jobId}/status`);
-      setOutput(result);
+      if (!jobId) return setOutput('[!] No job_id. Call /predict first.');
+
+      try {
+        const result = await callApi(`/api/v1/jobs/${jobId}/status`);
+        setOutput(result);
+        if (!result.error) {
+          saveToHistory(`/api/v1/jobs/${jobId}/status`, 'GET', null, result);
+        }
+      } catch (e) {
+        setOutput(`[!] Unexpected Error: ${e.toString()}`);
+      }
     };
 
     document.getElementById('btnResult').onclick = async () => {
       const jobId = document.getElementById('jobId').textContent.trim();
-      if (!jobId) return setOutput('No job_id. Call /predict first.');
-      const result = await callApi(`/api/v1/jobs/${jobId}/result`);
-      setOutput(result);
+      if (!jobId) return setOutput('[!] No job_id. Call /predict first.');
+
+      try {
+        const result = await callApi(`/api/v1/jobs/${jobId}/result`);
+        setOutput(result);
+        if (!result.error) {
+          saveToHistory(`/api/v1/jobs/${jobId}/result`, 'GET', null, result);
+        }
+      } catch (e) {
+        setOutput(`[!] Unexpected Error: ${e.toString()}`);
+      }
     };
 
     // init defaults
     document.getElementById('base').value = window.location.origin;
-    document.getElementById('token').value = "<demo-token>"; // replace with your demo token
+    document.getElementById('token').value = "demo-local-jwt-token-placeholder"; // Light mode: update with actual local JWT
   </script>
 </body>
 </html>

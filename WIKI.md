@@ -1,41 +1,145 @@
-# RExSyn Nexus Light – Wiki (Overview & Full Edition Preview)
+# RExSyn Nexus: Light vs Full Edition
 
-## Purpose
-- Light: Safe, demo-friendly edition with placeholder pipeline (no secrets, no external executors).
-- Full: Production-grade edition with complete scientific pipeline, infra, and governance. Contact for access.
+## Quick Comparison
 
-## Light Edition (Included)
-- API: `/health`, `/predict` (placeholder), `/status`, `/result`.
-- Data: simple Job/Result models, SQLite/in-memory ready.
-- Runtime: FastAPI app skeleton, minimal env (`ALLOW_PLACEHOLDER_PIPELINE=1`, local JWKS).
-- Tests: placeholder-level unit/smoke.
-- Packaging: MIT license, basic Dockerfile/compose templates.
-- Governance: Only a light checklist; full SIDRCE + Spicy 검수는 프로에서 실행.
+| Edition | Purpose | Target Users |
+|---------|---------|--------------|
+| **Light** | API evaluation, integration testing, rapid prototyping | Developers, small teams, evaluation |
+| **Full** | Production science workloads, clinical research | Research labs, biotech, clinical institutions |
 
-## Full Edition (Available in Pro/B2B)
-- Scientific Pipeline
-  - Structure prediction executors (AlphaFold/ESM/etc.) wired to real CLI/compute.
-  - Scientific validation: DockQ/SAXS/PoseBusters, metrics persisted and exported.
-  - MD refinement pipeline (GROMACS), refined PDB artifacts.
-  - Report generation (PDF/graphs) with artifact storage (MinIO/S3).
-- Security & Auth
-  - JWKS-based auth (RS256/ES256), RBAC/permissions, audit trails.
-  - PII tools, org/user seeding, policy checks.
-- Infra & Observability
-  - Helm charts, secrets management, Redis/Celery workers, Postgres/MinIO/MLflow wiring.
-  - Prometheus/Grafana metrics, alerting hooks.
-  - CI/CD with quality gates, coverage, lint, drift checks (DFI-META/SIDRCE).
-- Extensibility
-  - External executor configuration (science CLI paths, storage endpoints).
-  - Plug-in/add-on friendly architecture for B2B custom requirements.
- - Governance
-   - Full SIDRCE + SpicyFileReview pipeline, red/amber gates, audit artifacts.
+---
 
-## How to Use the Light Edition
-- Run locally with placeholders (no external tools), see `LOCAL_RUN.md`.
-- Demo script in `README.md` calls predict→status→result with a demo token.
-- No secrets needed; everything runs with safe defaults.
+## Feature Matrix
 
-## How to Upgrade to Full
-- Engage for B2B: we enable real executors, storage, auth, and deployment assets.
-- We can tailor add-ons (custom science tools, reports, governance) while keeping the open skeleton compatible.***
+### Science & Computation
+
+| Feature | Light | Full |
+|---------|-------|------|
+| AlphaFold3 Executor | L Placeholder |  GPU-accelerated |
+| ESMFold Executor | L Placeholder |  Fast folding |
+| RoseTTAFold | L Placeholder |  Alternative predictor |
+| DockQ v2 Validation | L |  Complex quality |
+| SAXS ǲ Validation | L |  X-ray fit |
+| PoseBusters | L |  Ligand pose QC |
+| GROMACS MD | L |  Energy minimization |
+| Response Time | ~50ms (instant) | 30s-30min (real) |
+
+### Infrastructure
+
+| Feature | Light | Full |
+|---------|-------|------|
+| Database | SQLite (local) | PostgreSQL (replicated) |
+| Task Queue | L Sync only | Redis + Celery |
+| Storage | Local FS | MinIO/S3 |
+| Experiment Tracking | L | MLflow |
+| Orchestration | Docker Compose | Kubernetes + Helm |
+| Autoscaling | L | HPA-ready |
+
+### Security & Governance
+
+| Feature | Light | Full |
+|---------|-------|------|
+| JWT Auth |  Local JWKS |  Remote JWKS (RS256) |
+| RBAC |  Basic |  Fine-grained |
+| Multi-Tenancy | L |  Org-level isolation |
+| SIDRCE Gates | L |  Quality/drift detection |
+| Audit Logs | Basic |  Structured + retention |
+
+### Reports & Monitoring
+
+| Feature | Light | Full |
+|---------|-------|------|
+| JSON Responses |  |  |
+| PDF Reports | L |  Academic-grade |
+| Grafana Dashboards | L |  Pre-built |
+| Alerting | L |  AlertManager |
+| Distributed Tracing | L |  Jaeger |
+
+---
+
+## Decision Guide
+
+### Choose Light Edition If:
+
+-  Testing API integration patterns
+-  Evaluating platform before commitment
+-  Building proof-of-concept
+-  No GPU/HPC resources
+-  Rapid deployment (< 5 min)
+
+### Choose Full Edition If:
+
+-  Real structure prediction workloads
+-  Scientific validation required
+-  MD refinement needed
+-  Academic paper generation
+-  Enterprise infrastructure (K8s, S3)
+-  Compliance (SIDRCE, audit trails)
+
+---
+
+## Use Cases
+
+### Research Lab (Academic)
+**Scenario:** 10-20 predictions/week, publication outputs
+**Recommendation:** Full Edition
+**Infrastructure:** Single GPU server + PostgreSQL
+**Cost:** ~$500/month
+
+### Startup (Early Stage)
+**Scenario:** API testing, 5 developers
+**Recommendation:** Light � Full (6 months)
+**Infrastructure:** Laptops � AWS EKS
+**Cost:** $0 � $2000/month
+
+### Pharma (Enterprise)
+**Scenario:** 100+ scientists, HIPAA, 1000s predictions
+**Recommendation:** Full Edition (on-prem)
+**Infrastructure:** Private K8s, GPU nodes
+**Cost:** Enterprise agreement
+
+### Teaching/Training
+**Scenario:** 50 students, API learning
+**Recommendation:** Light Edition
+**Infrastructure:** Local or shared server
+**Cost:** $0
+
+---
+
+## Upgrade Path
+
+**Timeline:** 1-2 weeks with support
+
+1. **Assessment** - Usage patterns, executor needs, infrastructure
+2. **Preparation** - Provision K8s, PostgreSQL, Redis, MinIO
+3. **Migration** - Export SQLite, configure executors, deploy Helm
+4. **Validation** - Parallel testing, quality checks, benchmarks
+5. **Cutover** - DNS switch, monitor 24-48h, decommission Light
+
+---
+
+## FAQ
+
+**Can I run Light in production?**
+Yes, for workflows without real predictions. Architecture is production-grade, outputs are placeholders.
+
+**Does Full include Light features?**
+Yes, Full is a superset. All APIs identical with added science capabilities.
+
+**Can I mix Light and Full?**
+Yes, use environment variables to toggle executor modes.
+
+**What's the learning curve?**
+Moderate. API surface identical, adds K8s/Helm complexity. Budget 1-2 weeks with support.
+
+**Is there a trial?**
+Yes, 30-day evaluation available.
+
+---
+
+## Contact
+
+- **Email:** info@flamehaven.space
+- **GitHub:** [Request B2B Demo](https://github.com/flamehaven01/RExSyn-Nexus-light/issues/new?labels=b2b-request)
+
+**Last Updated:** 2025-11-28 | **Version:** 1.0.0

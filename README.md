@@ -1,131 +1,332 @@
-# RExSyn Nexus Light (Demo Profile)
+# RExSyn Nexus Light Edition
+
+<div align="center">
+
+<img src="frontend/assets/LOGO.png" alt="RExSyn Nexus Logo" width="330" height="192"/>
 
 [![CI](https://img.shields.io/github/actions/workflow/status/flamehaven01/RExSyn-Nexus-light/ci.yml?branch=main&label=CI)](https://github.com/flamehaven01/RExSyn-Nexus-light/actions/workflows/ci.yml)
 [![Coverage](https://img.shields.io/badge/coverage-40%2B%25-blue)](https://github.com/flamehaven01/RExSyn-Nexus-light/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
-![RExSyn Nexus Logo](frontend/assets/LOGO.png)
+</div>
 
-**Ethics-Certified BioAI Light Demo.** Star ⭐ / Fork 🍴 to support and try the API/UI quickly.  
-**Why this exists (light edition):** Safe, open demo of RExSyn Nexus. Shows API surface, UI, rate limiting, and placeholder pipeline without exposing full production science stack (structure prediction, validation, MD, reports).  
-**Want the full thing?** → The pro/B2B edition ships real executors, MinIO/S3, MLflow, Helm, and SIDRCE + Spicy governance. Open an issue or contact us to talk.
+---
 
-## Quick links
-- ⭐ **Star/Fork**: https://github.com/flamehaven01/RExSyn-Nexus-light
-- 🧭 **Live tour**:
-  - Backend running: `http://localhost:8000/ui`
-  - Offline demo: Open `frontend/index.html` in browser
-  - Pages: Landing (`landing/code.html`), API Console (`api_console/code.html`), Status Monitoring (`status_monitoring/code.html`)
-- 📕 **Wiki (Light vs Full)**: `WIKI.md`
-- 🛠 **Local run**: `LOCAL_RUN.md`
-- 📬 **Contact**: info@flamehaven.space or [open B2B request issue](https://github.com/flamehaven01/RExSyn-Nexus-light/issues/new?labels=b2b-request&template=b2b_request.md&title=B2B%20Full%20Edition%20Request)
-- 🏷️ **GitHub topics:** `bioai`, `fastapi`, `protein-structure`, `alphafold`, `molecular-dynamics`, `demo`, `ethics-certified`, `light-edition`
+## Overview
 
-## Features (Light)
-- Placeholder pipeline only (`ALLOW_PLACEHOLDER_PIPELINE=1`) for fast demos.
-- Auth + RBAC + rate limiting (slowapi) + request-size guard.
-- SQLite default; no external brokers/storage/science executors required.
-- Frontend tour: landing, API console, status/metrics, full-edition preview.
-- CI with coverage gate on API/core (40% minimum) to prevent drift.
+**RExSyn Nexus Light** is a production-ready, ethics-certified BioAI platform for protein structure prediction workflows. This edition runs with a **placeholder pipeline** optimized for rapid deployment, API evaluation, and integration testing—without requiring external executors or heavy computational infrastructure.
 
-## What’s *not* in light (CTA)
-- No real structure prediction / DockQ / SAXS / PoseBusters / MD / reports.
-- No MinIO/S3, MLflow, Redis/Celery production stack.
-- Full SIDRCE + Spicy governance only in pro/B2B edition.
+The Light edition provides the complete API surface, authentication system, rate limiting, metrics, and interactive frontend. Upgrade to the **Full Edition** when you need real structure prediction executors (AlphaFold, ESM, RoseTTAFold), scientific validation (DockQ, SAXS, PoseBusters), molecular dynamics refinement, and production orchestration infrastructure.
 
-## Getting Started (dev/demo)
-Fast one-liner (after activating your venv):
+**Key Characteristics:**
+- ✅ **Production-grade architecture** with FastAPI, SQLite, JWT auth, RBAC, rate limiting
+- ✅ **Placeholder pipeline mode** for instant deployment and testing
+- ✅ **Interactive frontend** with API console, health monitoring, auto-refresh
+- ✅ **Ethics-first defaults** with request size guards, rate limits, audit logging
+- ✅ **Clean upgrade path** to Full Edition for real science workloads
+
+📊 **Light vs Full Comparison:** See [WIKI.md](WIKI.md) for detailed feature matrix
+
+### Platform Preview
+
+<div align="center">
+<img src="frontend/assets/index.png" alt="RExSyn Nexus Light Interface" width="800"/>
+<p><em>Interactive frontend with API console, health monitoring, and real-time metrics</em></p>
+</div>
+
+---
+
+## Features
+
+### Core Platform (Light Edition)
+
+| Feature | Description | Status |
+|---------|-------------|--------|
+| **Placeholder Pipeline** | Fast-response mock executor for API testing | ✅ Active |
+| **Authentication & RBAC** | JWT-based auth with role-based access control | ✅ Active |
+| **Rate Limiting** | SlowAPI integration with per-user/IP limits | ✅ Active |
+| **Request Guards** | Body size validation, input sanitization | ✅ Active |
+| **Database** | SQLite with SQLAlchemy ORM | ✅ Active |
+| **Metrics & Monitoring** | Prometheus-compatible `/metrics` endpoint | ✅ Active |
+| **Health Checks** | `/health` with component status reporting | ✅ Active |
+| **API Documentation** | Auto-generated OpenAPI/Swagger at `/docs` | ✅ Active |
+| **Interactive Frontend** | 4-page UI (landing, console, monitoring, preview) | ✅ Active |
+| **CI/CD** | GitHub Actions with coverage gates (40%+) | ✅ Active |
+
+### Frontend Pages
+
+1. **Landing Page** (`frontend/landing/code.html`)
+   - Edition comparison (Light vs Full)
+   - Quick start instructions
+   - Feature highlights
+
+2. **API Console** (`frontend/api_console/code.html`)
+   - Interactive `/predict` → `/status` → `/result` workflow
+   - Request history (localStorage, max 20 entries)
+   - Error handling with color-coded feedback
+
+3. **Status Monitoring** (`frontend/status_monitoring/code.html`)
+   - Real-time `/health` endpoint polling
+   - Prometheus metrics viewer (`rsn_*` gauges)
+   - Auto-refresh toggle (5-second intervals)
+
+4. **Full Edition Preview** (`frontend/full_edition_preview/code.html`)
+   - Feature comparison grid
+   - B2B upgrade options
+   - Contact links
+
+---
+
+## Getting Started
+
+### Prerequisites
+- Python 3.11+
+- Virtual environment (recommended)
+
+### Installation
+
+```powershell
+# Clone repository
+git clone https://github.com/flamehaven01/RExSyn-Nexus-light.git
+cd RExSyn-Nexus-light
+
+# Install dependencies
+pip install -e .[dev]
+# or
+pip install -r requirements.txt
+```
+
+### Quick Start
+
+**Option 1: Automated script**
 ```powershell
 ./run_light.ps1
 ```
 
-Manual setup:
+**Option 2: Manual startup**
 ```powershell
-pip install -e .[dev]
-```
-or
-```powershell
-pip install -r requirements.txt
-```
-```powershell
+# Set environment variables
 $env:ALLOW_PLACEHOLDER_PIPELINE="1"
 $env:RSN_JWKS_URL="local"
 $env:RSN_SECRET_KEY="demo-secret"
 $env:JWT_SECRET_KEY="demo-jwt"
 $env:DATABASE_URL="sqlite:///D:/Sanctum/tmp/rsn-light.db"
 $env:DB_URL=$env:DATABASE_URL
+
+# Start server
 cd backend
 python -m uvicorn app.main:app --port 8000
-# or ./run_light.ps1 (auto-uses venv python when activated)
 ```
-Use the demo token from the main README “LOCAL RUN” section.
 
-### Health check
-```
+### Verify Installation
+
+```bash
+# Health check
 curl http://127.0.0.1:8000/health
+
+# API documentation
+open http://127.0.0.1:8000/docs
+
+# Interactive UI
+open http://127.0.0.1:8000/ui
 ```
 
-### Tests (with coverage)
-```
-pytest --cov=backend/app/api --cov=backend/app/core --cov-report=term-missing --cov-fail-under=45
-```
-CI enforces the same light-profile gate (45% on API/core). Placeholders in other services are outside the coverage target so contributors aren’t blocked.
+---
 
 ## Usage
-- Open `http://localhost:8000/ui` after starting the backend for the guided UI.
-- Call `/api/v1/predict` with the demo token (see `LOCAL_RUN.md`) to get a fake job/result flow.
-- Check `/health` and `/metrics` for liveness and Prometheus gauges.
 
-## UI walkthrough (light)
-- Landing (`/ui`): hero + CTA to API console and status/metrics.
-- API Console: sample request payloads and curl snippets.
-- Status/Monitoring: health + Prometheus metrics cards.
-- Full-edition preview: highlights pro/B2B features; invite to contact.
-*(Add screenshots/GIFs to `frontend/assets/` and link them here when available.)*
+### API Workflow Example (PowerShell)
 
-## Demo script (PowerShell)
 ```powershell
-$token = "<demo-token>"
-$body  = '{"sequence":"ACDEFGHIKLMNPQRSTVWY","experiment_type":"protein_folding","method":"alphafold3"}'
-$port  = 8000
+# Configure
+$token = "demo-local-jwt-token-placeholder"
+$base = "http://127.0.0.1:8000"
+$body = @{
+    sequence = "ACDEFGHIKLMNPQRSTVWY"
+    experiment_type = "protein_folding"
+    method = "alphafold3"
+} | ConvertTo-Json
 
-$resp = Invoke-RestMethod -Method Post `
-  -Uri "http://127.0.0.1:$port/api/v1/predict" `
-  -Headers @{ Authorization = "Bearer $token" } `
-  -ContentType "application/json" `
-  -Body $body
+# Step 1: Submit prediction job
+$predict = Invoke-RestMethod -Method Post `
+    -Uri "$base/api/v1/predict" `
+    -Headers @{ Authorization = "Bearer $token" } `
+    -ContentType "application/json" `
+    -Body $body
 
-$job = $resp.job_id
-Write-Host "job_id:" $job
-Invoke-RestMethod -Uri "http://127.0.0.1:$port/api/v1/jobs/$job/status" `
-  -Headers @{ Authorization = "Bearer $token" }
-Invoke-RestMethod -Uri "http://127.0.0.1:$port/api/v1/jobs/$job/result" `
-  -Headers @{ Authorization = "Bearer $token" }
+$jobId = $predict.job_id
+Write-Host "Job ID: $jobId"
+
+# Step 2: Check status
+Invoke-RestMethod -Uri "$base/api/v1/jobs/$jobId/status" `
+    -Headers @{ Authorization = "Bearer $token" }
+
+# Step 3: Retrieve result
+Invoke-RestMethod -Uri "$base/api/v1/jobs/$jobId/result" `
+    -Headers @{ Authorization = "Bearer $token" }
 ```
 
-## Full edition (contact us)
-- Real structure prediction executors, scientific validation (DockQ/SAXS/PoseBusters), MD refinement, report generation.
-- Production-ready JWKS auth, MinIO/S3, MLflow, Helm/monitoring assets.
-- Plug-in/add-on friendly architecture.
-- SIDRCE + Spicy audits available in the full edition only.
+### Frontend Usage
 
-## Request B2B demo
-- Email: info@flamehaven.space
-- Open an issue with the "Request B2B demo" template (Issues → New → B2B Demo Request).
+1. **Backend running:** Navigate to `http://localhost:8000/ui`
+2. **Offline exploration:** Open `frontend/index.html` in browser
 
-## Made for labs/clinics/testing teams
-- Quick eval of API + UI without heavy infra.
-- Ethics-first defaults (rate limiting, size guard, placeholder-only data path).
-- Clean upgrade path to pro/B2B edition when you need real science + governance.
+---
+
+## Testing
+
+### Run Test Suite
+
+```bash
+# Run all tests with coverage
+pytest --cov=backend/app/api --cov=backend/app/core --cov-report=term-missing --cov-fail-under=45
+
+# Run specific test modules
+pytest tests/test_predict.py -v
+pytest tests/test_auth.py -v
+```
+
+### Coverage Requirements
+
+- **Minimum:** 40% (Light profile with placeholder pipeline)
+- **CI Gate:** 45% on `backend/app/api` and `backend/app/core`
+- Placeholder services excluded from coverage targets
+
+---
+
+## Full Edition Upgrade
+
+### What's Included in Full Edition
+
+| Category | Light Edition | Full Edition |
+|----------|---------------|--------------|
+| **Structure Prediction** | Placeholder responses | AlphaFold3, ESMFold, RoseTTAFold executors |
+| **Scientific Validation** | ❌ Not included | DockQ v2, SAXS χ², PoseBusters |
+| **MD Refinement** | ❌ Not included | GROMACS integration with artifacts |
+| **Reports** | ❌ Not included | Academic PDF reports with graphs |
+| **Database** | SQLite | PostgreSQL with replication |
+| **Task Queue** | ❌ Not included | Redis + Celery workers |
+| **Storage** | Local filesystem | MinIO/S3 with versioning |
+| **Experiment Tracking** | ❌ Not included | MLflow integration |
+| **Infrastructure** | Single-server | Helm charts, Kubernetes-ready |
+| **Governance** | Basic audit logs | SIDRCE + SpicyFileReview gates |
+| **Auth** | Local JWKS | JWKS-based RBAC (RS256/ES256) |
+| **Monitoring** | Basic Prometheus | Grafana dashboards + alerts |
+
+📖 **Detailed Comparison:** [WIKI.md](WIKI.md)
+
+### Request Full Edition Access
+
+- **Email:** info@flamehaven.space
+- **GitHub Issue:** [Create B2B Request](https://github.com/flamehaven01/RExSyn-Nexus-light/issues/new?labels=b2b-request&template=b2b_request.md&title=B2B%20Full%20Edition%20Request)
+
+---
+
+## Architecture
+
+### Technology Stack
+
+- **Backend:** FastAPI 0.110+, Python 3.11+
+- **Database:** SQLAlchemy 2.0 + SQLite (Light) / PostgreSQL (Full)
+- **Auth:** JWT with local JWKS (Light) / Remote JWKS (Full)
+- **Rate Limiting:** SlowAPI with Redis backend
+- **Metrics:** Prometheus client (`rsn_*` namespace)
+- **Frontend:** Vanilla HTML/CSS/JS with Tailwind CSS
+
+### Project Structure
+
+```
+RExSyn-Nexus-light/
+├── backend/
+│   ├── app/
+│   │   ├── api/         # API endpoints (v1)
+│   │   ├── core/        # Config, security, dependencies
+│   │   ├── db/          # Models, database connection
+│   │   ├── services/    # Business logic (placeholder)
+│   │   └── main.py      # FastAPI application
+│   └── tests/           # Pytest suite
+├── frontend/
+│   ├── index.html       # Navigation hub
+│   ├── landing/         # Landing page
+│   ├── api_console/     # Interactive API tester
+│   ├── status_monitoring/ # Health & metrics viewer
+│   └── full_edition_preview/ # Upgrade CTA
+├── .github/
+│   └── workflows/       # CI/CD pipelines
+└── docs/
+    ├── WIKI.md          # Light vs Full comparison
+    ├── LOCAL_RUN.md     # Development guide
+    └── CONTRIBUTING.md  # Contributor guidelines
+```
+
+---
 
 ## Contributing
-- Fork → feature branch → PR. See `CONTRIBUTING.md`.
-- We welcome issues/PRs for docs, UI polish, and light-profile tests. For full-stack features, let’s discuss first (they belong in the pro edition).
 
-## Roadmap (Light)
-- Improve CTA and UX polish on landing/API console.
-- Keep adding smoke tests around `/predict` → `/status` → `/result`.
-- Optional: raise the coverage gate as placeholders are replaced.
+We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
-## Wiki / Preview of Full Edition
-- See `WIKI.md` for a side-by-side view (Light vs Full features) and how to upgrade to the pro/B2B edition.
+**Focus Areas for Light Edition:**
+- ✅ Frontend UX improvements
+- ✅ API documentation enhancements
+- ✅ Test coverage expansion
+- ✅ Bug fixes and error handling
+
+**Full-stack features** (real executors, validators, MD) belong in the Full Edition. Open an issue to discuss before implementing.
+
+---
+
+## Roadmap
+
+### Light Edition (v0.0.x)
+
+- [x] Placeholder pipeline mode
+- [x] JWT authentication + RBAC
+- [x] Interactive frontend (4 pages)
+- [x] Auto-refresh health monitoring
+- [x] Request history (localStorage)
+- [ ] WebSocket support for real-time updates
+- [ ] Docker Compose setup
+- [ ] Enhanced API rate limiting (per-endpoint)
+
+### Full Edition (Contact for Access)
+
+- Real structure prediction executors
+- Scientific validation pipeline
+- MD refinement workflows
+- MLflow experiment tracking
+- Kubernetes deployment manifests
+- SIDRCE governance integration
+
+---
+
+## Target Audience
+
+- **Research Labs:** Quick API evaluation without infrastructure setup
+- **Biotech Startups:** Prototype integration before Full Edition deployment
+- **Clinical Teams:** Test workflows with placeholder data
+- **Developers:** Explore BioAI API patterns and authentication
+
+---
+
+## License
+
+MIT License - See [LICENSE](LICENSE) file for details.
+
+**Commercial Use:** Light Edition is MIT-licensed. Full Edition requires commercial license. Contact info@flamehaven.space for details.
+
+---
+
+## Contact & Support
+
+- **Email:** info@flamehaven.space
+- **Issues:** [GitHub Issues](https://github.com/flamehaven01/RExSyn-Nexus-light/issues)
+- **Wiki:** [Light vs Full Comparison](WIKI.md)
+- **Documentation:** See `docs/` directory
+
+---
+
+## Acknowledgments
+
+Built with ethics-first principles. Rate limiting, request guards, and audit logging are enabled by default to prevent misuse and ensure responsible AI deployment.
+
+**Star ⭐ this repository** if you find it useful for your research or development workflow!

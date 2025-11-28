@@ -2,7 +2,7 @@
 
 <div align="center">
 
-<img src="frontend/assets/LOGO.png" alt="RExSyn Nexus Logo" width="330" height="192"/>
+<img src="frontend/assets/LOGO.png" alt="RExSyn Nexus Logo" width="660" height="384"/>
 
 [![CI](https://img.shields.io/github/actions/workflow/status/flamehaven01/RExSyn-Nexus-light/ci.yml?branch=main&label=CI)](https://github.com/flamehaven01/RExSyn-Nexus-light/actions/workflows/ci.yml)
 [![Coverage](https://img.shields.io/badge/coverage-40%2B%25-blue)](https://github.com/flamehaven01/RExSyn-Nexus-light/actions/workflows/ci.yml)

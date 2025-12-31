@@ -121,38 +121,61 @@
     <div class="flex items-center gap-3">
       <img src="/frontend/assets/LOGO.png" alt="RExSyn Nexus Logo" class="h-12 w-12 rounded-lg border border-[#1f2b3a] object-contain bg-[#0f1720]" />
       <div class="badge">
-        <span>RExSyn Nexus Light</span>
-        <span>Placeholder pipeline</span>
+        <span>RExSyn Nexus Light v0.1.0</span>
+        <span>Omega Scorer + Scenario Engine</span>
         <span>MIT</span>
       </div>
     </div>
-    <h1>Ethics-Certified BioAI Demo, Safely Unlocked</h1>
+    <h1>Intelligent BioAI Demos with Scenario Control</h1>
     <p class="lead">
-      This light profile runs a placeholder pipeline so you can explore the API surface, JWT flow, and monitoring
-      without external executors or secrets. The full edition adds real structure prediction, scientific validation,
-      MD refinement, reports, and production infra.
+      Light Edition v0.1.0 features production-grade Omega scoring (I×P×(1-Δ)) and deterministic scenario simulations 
+      for controlled B2B demonstrations. Run PERFECT, DRIFT_DETECTED, or EMPATHY_FAIL scenarios with 100% repeatable 
+      outcomes. The full edition adds real AlphaFold3/ESM executors, scientific validation, MD refinement, and enterprise infrastructure.
     </p>
     <div class="cta">
       <a id="btn-docs" class="btn" href="/docs" target="_blank" rel="noreferrer">Open API Docs</a>
-      <a id="btn-b2b" class="btn secondary" href="https://github.com" target="_blank" rel="noreferrer">Request full edition</a>
+      <a id="btn-b2b" class="btn secondary" href="https://github.com" target="_blank" rel="noreferrer">Request Full Edition</a>
     </div>
     <div>
-      <span class="pill">/health</span>
+      <span class="pill">NEW: simulation_scenario</span>
+      <span class="pill">NEW: omega_preview</span>
       <span class="pill">/api/v1/predict</span>
-      <span class="pill">/api/v1/jobs/{id}/status</span>
+      <span class="pill">/health</span>
       <span class="pill">/metrics</span>
     </div>
   </header>
 
   <main>
     <section class="card">
-      <h3>Light Edition</h3>
-      <p>Safe defaults, no external services. Perfect for demo and sandbox.</p>
+      <h3>[+] Omega Scorer Lite (v0.1.0)</h3>
+      <p>Production-grade quality scoring with S++ certification.</p>
       <ul>
-        <li>Placeholder compute (ALLOW_PLACEHOLDER_PIPELINE=1)</li>
-        <li>SQLite by default</li>
-        <li>JWT local mode (demo token)</li>
-        <li>Metrics exposed at /metrics</li>
+        <li>Geometric mean: Omega = (I × P × (1-Delta))^(1/3)</li>
+        <li>Grade boundaries: S++/S+/S/A/B/C/D/F</li>
+        <li>Integrity, Resonance, Stability components</li>
+        <li>Performance: <1ms calculation time</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h3>[+] Scenario Engine (v0.1.0)</h3>
+      <p>Deterministic simulations for controlled B2B demos.</p>
+      <ul>
+        <li>PERFECT: Omega=0.97 (S++), deployment approved</li>
+        <li>DRIFT_DETECTED: Day 3 degrades to Omega=0.71 (C)</li>
+        <li>EMPATHY_FAIL: High pain, Omega=0.68 (D), blocked</li>
+        <li>RANDOM: Original random behavior for testing</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h3>Light Edition Features</h3>
+      <p>Safe defaults, no external services required.</p>
+      <ul>
+        <li>Scenario-based simulation (ALLOW_PLACEHOLDER_PIPELINE=1)</li>
+        <li>SQLite database (demo-grade)</li>
+        <li>JWT local mode (demo tokens)</li>
+        <li>14 tests, 100% passing</li>
       </ul>
     </section>
 
@@ -160,37 +183,40 @@
       <h3>Full Edition (CTA)</h3>
       <p>Activate the full BioAI stack for production.</p>
       <ul>
-        <li>Structure prediction (AlphaFold/ESM) + DockQ/SAXS validation</li>
-        <li>MD refinement + academic PDF reports</li>
-        <li>JWKS auth, Redis/Celery, Postgres, MinIO/S3, MLflow</li>
-        <li>SIDRCE + Spicy audit gates</li>
+        <li>Real AlphaFold3/ESM/RoseTTAFold executors</li>
+        <li>DockQ/SAXS/PoseBusters validation + MD refinement</li>
+        <li>PostgreSQL, Redis/Celery, MinIO/S3, MLflow</li>
+        <li>24/7 Enterprise support with custom SLA</li>
       </ul>
     </section>
 
     <section class="card">
-      <h3>Quick Start</h3>
-      <p>Run locally with placeholders.</p>
+      <h3>Quick Start (v0.1.0)</h3>
+      <p>Run locally with Omega scoring enabled.</p>
       <ul>
         <li>pip install -e .[dev]</li>
-        <li>run_light.ps1 (uses your venv python)</li>
+        <li>run_light.ps1 or python -m uvicorn app.main:app</li>
         <li>curl http://127.0.0.1:8000/health</li>
-        <li>Demo predict→status→result flow in README</li>
+        <li>Test scenarios: "perfect", "drift_detected", "empathy_fail"</li>
       </ul>
     </section>
+
     <section class="card">
-      <h3>Navigate</h3>
-      <p>Jump to the key demo screens.</p>
+      <h3>Navigate Demo Pages</h3>
+      <p>Jump to interactive demo screens.</p>
       <ul>
         <li><a id="link-landing" href="#">Landing page</a></li>
-        <li><a id="link-api-console" href="#">API console</a></li>
-        <li><a id="link-status" href="#">Status & metrics</a></li>
+        <li><a id="link-api-console" href="#">API console (test scenarios)</a></li>
+        <li><a id="link-status" href="#">Status & metrics monitoring</a></li>
         <li><a id="link-preview" href="#">Full edition preview</a></li>
       </ul>
     </section>
   </main>
 
   <footer>
-    Need the full pipeline or a B2B add-on? Reach out and we will enable the production stack and science executors.
+    <strong>v0.1.0 Release (2025-12-31)</strong>: Omega Scorer Lite + Scenario Engine now available. 
+    Test deterministic scenarios for B2B demonstrations. Need full pipeline with real GPU compute? 
+    Contact info@flamehaven.space for Full Edition access.
   </footer>
   <script>
     (() => {

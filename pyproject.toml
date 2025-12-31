@@ -8,24 +8,39 @@ exclude = ["frontend*"]
 
 [project]
 name = "rexsyn-nexus-light"
-version = "0.1.0"
-description = "Light Edition with Omega Scorer + Scenario Engine for B2B demonstrations"
+version = "0.2.0-dev"
+description = "Light Edition with Visual Feedback + Security Updates (v0.2.0 development)"
 authors = [{name = "Flamehaven", email = "info@flamehaven.space"}]
 license = {text = "MIT"}
 readme = "README.md"
 requires-python = ">=3.11"
+keywords = [
+    "bioai", "protein-folding", "omega-scoring", "b2b-demo", 
+    "scenario-engine", "empathy-gate", "rbac", "api-platform"
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+    "Topic :: Software Development :: Libraries :: Application Frameworks",
+]
 dependencies = [
-    "fastapi>=0.110,<1.0",
-    "uvicorn>=0.23,<1.0",
-    "pydantic>=2.6,<3.0",
+    "fastapi>=0.115.0,<1.0",
+    "uvicorn[standard]>=0.30.0,<1.0",
+    "pydantic>=2.9.0,<3.0",
     "email-validator>=2.2,<3.0",
     "numpy>=1.26,<2.0",
-    "sqlalchemy>=2.0,<3.0",
+    "sqlalchemy>=2.0.35,<3.0",
     "python-multipart>=0.0.9",
-    "passlib[bcrypt]>=1.7,<2.0",
-    "python-jose>=3.3,<4.0",
-    "prometheus-client>=0.19,<1.0",
-    "redis>=5.0,<6.0",
+    "passlib[bcrypt]>=1.7.4,<2.0",
+    "python-jose[cryptography]>=3.3.0,<4.0",
+    "prometheus-client>=0.21.0,<1.0",
+    "redis>=5.1.0,<6.0",
     "slowapi>=0.1.9"
 ]
 

@@ -8,8 +8,8 @@ exclude = ["frontend*"]
 
 [project]
 name = "rexsyn-nexus-light"
-version = "0.0.5"
-description = "Light OSS demo with comprehensive v0.1.0 upgrade planning (placeholder science + CTA for full edition)"
+version = "0.1.0"
+description = "Light Edition with Omega Scorer + Scenario Engine for B2B demonstrations"
 authors = [{name = "Flamehaven", email = "info@flamehaven.space"}]
 license = {text = "MIT"}
 readme = "README.md"

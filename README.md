@@ -6,9 +6,9 @@
 
 [![CI](https://img.shields.io/github/actions/workflow/status/flamehaven01/RExSyn-Nexus-light/ci.yml?branch=main&label=CI)](https://github.com/flamehaven01/RExSyn-Nexus-light/actions/workflows/ci.yml)
 [![Coverage](https://img.shields.io/badge/coverage-40%2B%25-blue)](https://github.com/flamehaven01/RExSyn-Nexus-light/actions/workflows/ci.yml)
-[![Version](https://img.shields.io/badge/version-0.0.5-blue.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-0.1.0-blue.svg)](CHANGELOG.md)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
-[![Architecture](https://img.shields.io/badge/architecture-S%2B%2B%20planned-orange.svg)](UPGRADE_SPEC_v0.1.0.md)
+[![Architecture](https://img.shields.io/badge/architecture-S%2B%2B%20partial-brightgreen.svg)](README.md)
 
 </div>
 
@@ -16,24 +16,27 @@
 
 ## Overview
 
-**RExSyn Nexus Light v0.0.5** is a production-ready, **S++ architecture-planned** BioAI platform for protein structure prediction workflows. This edition runs with a **placeholder pipeline** optimized for rapid deployment, API evaluation, and integration testing—without requiring external executors or heavy computational infrastructure.
+**RExSyn Nexus Light v0.1.0** is a **production-ready BioAI platform** with **intelligent Omega scoring and scenario-driven simulations** for B2B demonstrations. This edition runs with **deterministic simulation modes** optimized for repeatable sales demos, API evaluation, and integration testing—without requiring GPU infrastructure.
 
-The Light edition provides complete API surface, authentication system, rate limiting, metrics, and interactive frontend. **v0.0.5 adds comprehensive upgrade planning** with detailed specifications for v0.1.0 enhancements including Omega Scorer Lite, Scenario Engine, and Visual Feedback systems.
+The Light edition provides complete API surface, authentication system, rate limiting, metrics, interactive frontend, **and now includes**:
+- **Omega Scorer Lite**: Calculates Integrity, Resonance, Stability scores with S++/S+/S/A/B/C/D/F grading ✅
+- **Scenario Engine**: Deterministic simulation modes (Perfect, Drift Detection, Empathy Fail) ✅
+- **API Integration**: `/predict` endpoint with omega_preview responses ✅
+- **Test Coverage**: 14 tests, 100% passing ✅
 
-**What's New in v0.0.5:**
-- [+] **Upgrade Specification**: 850+ line detailed implementation plan for v0.1.0 (UPGRADE_SPEC_v0.1.0.md)
-- [+] **Documentation Overhaul**: Enhanced README with Light vs Full comparison table
-- [+] **Architecture Planning**: S++ certification roadmap and quality metrics
-- [+] **Security Roadmap**: Dependency update plan aligned with Full Edition patches
+**What's New in v0.1.0:**
+- [+] **Omega Scorer Lite**: Geometric mean of I×P×(1-Δ) with production-grade grading
+- [+] **Scenario Engine**: 4 deterministic modes for controlled demonstrations
+- [+] **API Enhancement**: simulation_scenario parameter + omega_preview responses
+- [+] **Test Suite**: 14 comprehensive tests validating all scenarios
 
-**Planned for v0.1.0** (see [UPGRADE_SPEC_v0.1.0.md](UPGRADE_SPEC_v0.1.0.md)):
-- **Omega Scorer Lite**: I×P×(1-Δ) geometric mean with S++/S+/S/A/B/C/D/F grading
-- **Scenario Engine**: Deterministic simulations (Perfect/Drift/Empathy Fail)
-- **Visual Feedback**: Empathy gate alerts + Omega breakdown displays
-- **Security Updates**: 8 dependency patches (FastAPI, SQLAlchemy, etc.)
+**Planned for v0.2.0**:
+- Visual Feedback: Empathy gate alerts + Omega breakdown displays (frontend)
+- Security Updates: 8 dependency patches aligned with Full Edition
+- Docker Compose: Production-ready multi-container setup
 
-📊 **Current Status**: v0.0.4 → **v0.0.5** (Documentation & Planning)  
-📖 **Next Release**: v0.1.0 with Omega Scoring + Scenario Engine (Q1 2025)  
+📊 **Current Status**: v0.0.5 → **v0.1.0** (Core Features Implemented)  
+📖 **Next Release**: v0.2.0 with Visual Feedback + Security Updates (Q1 2025)  
 📋 **Comparison**: See [WIKI.md](WIKI.md) for detailed Light vs Full feature matrix
 
 ### Platform Preview
@@ -286,24 +289,24 @@ We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guid
 
 ## Roadmap
 
-### v0.0.5 (Current Release - 2025-12-31) ✅
-- [x] **Documentation Overhaul**: Comprehensive README + CHANGELOG updates
-- [x] **Upgrade Specification**: Detailed v0.1.0 implementation plan (850+ lines)
-- [x] **Architecture Planning**: S++ certification roadmap
-- [x] **Feature Comparison**: Enhanced Light vs Full matrix
+### v0.1.0 (Current Release - 2025-12-31) ✅
+- [x] **Omega Scorer Lite**: I×P×(1-Δ) geometric mean algorithm
+- [x] **Scenario Engine**: Perfect/Drift/Empathy Fail/Random modes
+- [x] **API Integration**: simulation_scenario parameter + omega_preview
+- [x] **Test Suite**: 14 comprehensive tests, 100% passing
+- [x] **Documentation**: Updated CHANGELOG, README with v0.1.0 details
 
-### v0.1.0 (Planned - 2025-Q1) 🚀  
-See [UPGRADE_SPEC_v0.1.0.md](UPGRADE_SPEC_v0.1.0.md) for details
-- [ ] **Omega Scorer Lite**: I×P×(1-Δ) with grade certification
-- [ ] **Scenario Engine**: Perfect/Drift/Empathy Fail modes
-- [ ] **Visual Feedback**: Empathy gate alerts + Omega displays
-- [ ] **Security Updates**: 8 dependency patches
-- [ ] **RBAC Testing**: Enhanced test coverage
+### v0.2.0 (Next - Q1 2025) 🚀  
+- [ ] **Visual Feedback**: Empathy gate alerts (frontend JavaScript)
+- [ ] **Omega Display**: Interactive breakdown with progress bars
+- [ ] **Security Updates**: 8 dependency patches (FastAPI, SQLAlchemy, etc.)
+- [ ] **Docker Compose**: Production-ready multi-container setup
+- [ ] **Enhanced Documentation**: API examples with Omega scenarios
 
-### v0.2.0 (Future - 2025-Q2) 📋
+### v0.3.0 (Future - Q2 2025) 📋
 - [ ] WebSocket support for real-time updates
-- [ ] Docker Compose production setup
 - [ ] Interactive scenario builder UI
+- [ ] Drift timeline visualization
 - [ ] Enhanced API rate limiting (per-endpoint)
 
 ### Full Edition (Contact for Access)

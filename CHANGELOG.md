@@ -7,20 +7,50 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [Unreleased - v0.1.0]
+## [0.1.0] - 2025-12-31
 
-### Planned Features
-See [UPGRADE_SPEC_v0.1.0.md](UPGRADE_SPEC_v0.1.0.md) for detailed specifications.
+### Added - Omega Scorer Lite + Scenario Engine Integration
 
-- **Omega Scorer Lite**: Geometric mean algorithm (I×P×(1-Δ)) with grade boundaries
-- **Scenario Engine**: Deterministic simulation modes for B2B demos  
-- **Visual Feedback**: Empathy gate alerts + Omega breakdown displays
-- **Security Updates**: 8 dependency patches aligned with Full Edition
-- **RBAC Testing**: Enhanced Viewer/User/Admin test coverage
+**This release implements the core B2B demonstration features planned in v0.0.5, transforming RExSyn-Nexus-Light into an intelligent sales tool with scenario-driven simulations.**
 
----
+#### Core Features Implemented
+- **Omega Scorer Lite** (`backend/app/services/omega_scorer_lite.py`)
+  - Geometric mean algorithm: Ω = (I × P × (1-Δ))^(1/3)
+  - **Integrity (I)**: confidence × validation_multiplier  
+  - **Resonance (P)**: 1 - normalized_pain (inverse of user pain metrics)
+  - **Stability (1-Δ)**: consistency × exp(-error_count × 0.1)
+  - Grade boundaries: S++ (≥0.965), S+ (≥0.95), S (≥0.93), A (≥0.85), B (≥0.75), C (≥0.65), D (≥0.50), F (<0.50)
+  - Aligned with Full Edition scoring system
 
-## [0.0.5] - 2025-12-31
+- **Scenario Engine** (`backend/app/services/scenario_engine.py`)
+  - **PERFECT**: All metrics excellent (Ω=0.97, S++ grade), deployment approved
+  - **DRIFT_DETECTED**: Day 1-2 perfect, Day 3+ degraded (Ω=0.71, C grade), deployment blocked
+  - **EMPATHY_FAIL**: High user pain metrics (Ω=0.68, D grade), deployment blocked
+  - **RANDOM**: Original random behavior for testing
+  - 100% deterministic outcomes for repeatable demos
+
+#### API Enhancements
+- **PredictionConfig** (`backend/app/api/v1/predict.py`)
+  - Added `simulation_scenario` optional parameter
+  - Supports: "perfect", "drift_detected", "empathy_fail", "random"
+  
+- **PredictionResponse** updates:
+  - Added `omega_preview`: Early Omega score estimate with I/P/1-Δ breakdown
+  - Added `scenario_active`: Active simulation scenario indicator
+  
+- **`/predict` Endpoint Integration**:
+  - Calculates Omega score when `simulation_scenario` specified
+  - Returns Omega breakdown in response for immediate feedback
+  - Logs scenario execution results for demo tracking
+
+#### Test Suite (14 tests, 100% passing)
+- **test_omega_scorer.py** (6 tests):
+  - Perfect scenario validation (S++ grade)
+  - Empathy fail scenario (low resonance)
+  - Drift scenario (low stability)
+  - Grade boundary validation
+  - Validation failure penalty
+  - Serialization (to_dict)
 
 ### Added - Comprehensive Planning & Documentation
 

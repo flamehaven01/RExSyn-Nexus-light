@@ -88,6 +88,10 @@ class PredictionConfig(BaseModel):
         default=None,
         description="Number of pLDDT sampling regions (auto if None)"
     )
+    simulation_scenario: Optional[str] = Field(
+        default=None,
+        description="Demo scenario: 'perfect', 'drift_detected', 'empathy_fail', 'random' (Light Edition only)"
+    )
 
 
 class PredictionRequest(BaseModel):
@@ -151,6 +155,14 @@ class PredictionResponse(BaseModel):
     estimated_time_seconds: int = Field(..., description="Estimated completion time")
     created_at: datetime = Field(default_factory=datetime.utcnow)
     message: str = Field(..., description="Status message")
+    omega_preview: Optional[Dict[str, Any]] = Field(
+        default=None,
+        description="Early Omega score estimate (Light Edition)"
+    )
+    scenario_active: Optional[str] = Field(
+        default=None,
+        description="Active simulation scenario (Light Edition)"
+    )
 
 
 class JobStatusResponse(BaseModel):
@@ -280,6 +292,33 @@ async def submit_prediction(
         )
         db.add(job)
         db.commit()
+        
+        # Calculate Omega preview if scenario specified (Light Edition)
+        omega_preview = None
+        scenario_active = None
+        if request.prediction_config.simulation_scenario:
+            from app.services.scenario_engine import scenario_engine, Scenario
+            from app.services.omega_scorer_lite import omega_scorer
+            
+            try:
+                scenario = Scenario(request.prediction_config.simulation_scenario)
+                outcome = scenario_engine.execute(scenario)
+                
+                omega_result = omega_scorer.calculate(
+                    confidence_score=outcome.confidence_score,
+                    validation_passed=outcome.validation_passed,
+                    pain_metrics=outcome.pain_metrics,
+                    error_count=outcome.error_count,
+                    consistency_score=outcome.consistency_score,
+                )
+                
+                omega_preview = omega_result.to_dict()
+                scenario_active = request.prediction_config.simulation_scenario
+                
+                logger.info(f"Scenario {scenario_active}: Omega={omega_result.omega:.3f} ({omega_result.grade})")
+            except Exception as e:
+                logger.warning(f"Failed to calculate Omega preview: {e}")
+        
     except Exception as e:
         db.rollback()
         logger.error(f"Failed to create job {job_id}: {e}")
@@ -299,7 +338,9 @@ async def submit_prediction(
         job_id=job_id,
         status="queued",
         estimated_time_seconds=estimated_time,
-        message=f"Job {job_id} queued for processing. Use /jobs/{job_id}/status to monitor progress."
+        message=f"Job {job_id} queued for processing. Use /jobs/{job_id}/status to monitor progress.",
+        omega_preview=omega_preview,
+        scenario_active=scenario_active,
     )
 
 

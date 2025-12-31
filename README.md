@@ -6,7 +6,9 @@
 
 [![CI](https://img.shields.io/github/actions/workflow/status/flamehaven01/RExSyn-Nexus-light/ci.yml?branch=main&label=CI)](https://github.com/flamehaven01/RExSyn-Nexus-light/actions/workflows/ci.yml)
 [![Coverage](https://img.shields.io/badge/coverage-40%2B%25-blue)](https://github.com/flamehaven01/RExSyn-Nexus-light/actions/workflows/ci.yml)
+[![Version](https://img.shields.io/badge/version-0.0.5-blue.svg)](CHANGELOG.md)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![Architecture](https://img.shields.io/badge/architecture-S%2B%2B%20planned-orange.svg)](UPGRADE_SPEC_v0.1.0.md)
 
 </div>
 
@@ -14,18 +16,25 @@
 
 ## Overview
 
-**RExSyn Nexus Light** is a production-ready, ethics-certified BioAI platform for protein structure prediction workflows. This edition runs with a **placeholder pipeline** optimized for rapid deployment, API evaluation, and integration testing—without requiring external executors or heavy computational infrastructure.
+**RExSyn Nexus Light v0.0.5** is a production-ready, **S++ architecture-planned** BioAI platform for protein structure prediction workflows. This edition runs with a **placeholder pipeline** optimized for rapid deployment, API evaluation, and integration testing—without requiring external executors or heavy computational infrastructure.
 
-The Light edition provides the complete API surface, authentication system, rate limiting, metrics, and interactive frontend. Upgrade to the **Full Edition** when you need real structure prediction executors (AlphaFold, ESM, RoseTTAFold), scientific validation (DockQ, SAXS, PoseBusters), molecular dynamics refinement, and production orchestration infrastructure.
+The Light edition provides complete API surface, authentication system, rate limiting, metrics, and interactive frontend. **v0.0.5 adds comprehensive upgrade planning** with detailed specifications for v0.1.0 enhancements including Omega Scorer Lite, Scenario Engine, and Visual Feedback systems.
 
-**Key Characteristics:**
-- ✅ **Production-grade architecture** with FastAPI, SQLite, JWT auth, RBAC, rate limiting
-- ✅ **Placeholder pipeline mode** for instant deployment and testing
-- ✅ **Interactive frontend** with API console, health monitoring, auto-refresh
-- ✅ **Ethics-first defaults** with request size guards, rate limits, audit logging
-- ✅ **Clean upgrade path** to Full Edition for real science workloads
+**What's New in v0.0.5:**
+- [+] **Upgrade Specification**: 850+ line detailed implementation plan for v0.1.0 (UPGRADE_SPEC_v0.1.0.md)
+- [+] **Documentation Overhaul**: Enhanced README with Light vs Full comparison table
+- [+] **Architecture Planning**: S++ certification roadmap and quality metrics
+- [+] **Security Roadmap**: Dependency update plan aligned with Full Edition patches
 
-📊 **Light vs Full Comparison:** See [WIKI.md](WIKI.md) for detailed feature matrix
+**Planned for v0.1.0** (see [UPGRADE_SPEC_v0.1.0.md](UPGRADE_SPEC_v0.1.0.md)):
+- **Omega Scorer Lite**: I×P×(1-Δ) geometric mean with S++/S+/S/A/B/C/D/F grading
+- **Scenario Engine**: Deterministic simulations (Perfect/Drift/Empathy Fail)
+- **Visual Feedback**: Empathy gate alerts + Omega breakdown displays
+- **Security Updates**: 8 dependency patches (FastAPI, SQLAlchemy, etc.)
+
+📊 **Current Status**: v0.0.4 → **v0.0.5** (Documentation & Planning)  
+📖 **Next Release**: v0.1.0 with Omega Scoring + Scenario Engine (Q1 2025)  
+📋 **Comparison**: See [WIKI.md](WIKI.md) for detailed Light vs Full feature matrix
 
 ### Platform Preview
 
@@ -277,15 +286,24 @@ We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guid
 
 ## Roadmap
 
-### Light Edition (v0.0.x)
+### v0.0.5 (Current Release - 2025-12-31) ✅
+- [x] **Documentation Overhaul**: Comprehensive README + CHANGELOG updates
+- [x] **Upgrade Specification**: Detailed v0.1.0 implementation plan (850+ lines)
+- [x] **Architecture Planning**: S++ certification roadmap
+- [x] **Feature Comparison**: Enhanced Light vs Full matrix
 
-- [x] Placeholder pipeline mode
-- [x] JWT authentication + RBAC
-- [x] Interactive frontend (4 pages)
-- [x] Auto-refresh health monitoring
-- [x] Request history (localStorage)
+### v0.1.0 (Planned - 2025-Q1) 🚀  
+See [UPGRADE_SPEC_v0.1.0.md](UPGRADE_SPEC_v0.1.0.md) for details
+- [ ] **Omega Scorer Lite**: I×P×(1-Δ) with grade certification
+- [ ] **Scenario Engine**: Perfect/Drift/Empathy Fail modes
+- [ ] **Visual Feedback**: Empathy gate alerts + Omega displays
+- [ ] **Security Updates**: 8 dependency patches
+- [ ] **RBAC Testing**: Enhanced test coverage
+
+### v0.2.0 (Future - 2025-Q2) 📋
 - [ ] WebSocket support for real-time updates
-- [ ] Docker Compose setup
+- [ ] Docker Compose production setup
+- [ ] Interactive scenario builder UI
 - [ ] Enhanced API rate limiting (per-endpoint)
 
 ### Full Edition (Contact for Access)
